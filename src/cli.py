@@ -55,6 +55,23 @@ def analyze(repo_path: str, output_dir: Path | None, full_history: bool) -> None
 [bold]Entry points:[/bold] {surveyor.get('entry_points', 0)}
 [bold]Hub modules:[/bold] {surveyor.get('hub_modules', 0)}"""
 
+        # Add SQL-specific stats if present
+        sql_stats = surveyor.get('sql', {})
+        if sql_stats:
+            summary += f"""
+
+[bold cyan]SQL Analysis:[/bold cyan]
+  Files: {sql_stats.get('files', 0)} | Tables: {sql_stats.get('tables_referenced', 0)} referenced, {sql_stats.get('tables_written', 0)} written
+  CTEs: {sql_stats.get('ctes_defined', 0)} | Aggregations: {sql_stats.get('with_aggregation', 0)} | Window funcs: {sql_stats.get('with_window_functions', 0)}"""
+
+        # Add YAML-specific stats if present
+        yaml_stats = surveyor.get('yaml', {})
+        if yaml_stats:
+            summary += f"""
+
+[bold yellow]YAML Analysis:[/bold yellow]
+  Files: {yaml_stats.get('files', 0)} | Keys: {yaml_stats.get('total_keys', 0)} | Max depth: {yaml_stats.get('max_depth', 0)}"""
+
         console.print(Panel(summary, title="Analysis Summary"))
 
         console.print(f"\n[dim]Artifacts written to:[/dim]")

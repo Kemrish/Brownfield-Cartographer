@@ -46,6 +46,20 @@ class ModuleNode(BaseModel):
     public_functions: list[str] = Field(default_factory=list)
     classes: list[str] = Field(default_factory=list)
     decorators: list[str] = Field(default_factory=list)
+    # SQL-specific fields (populated when language=sql)
+    sql_statement_type: Optional[str] = None  # SELECT, INSERT, CREATE, etc.
+    sql_tables_referenced: list[str] = Field(default_factory=list)
+    sql_tables_written: list[str] = Field(default_factory=list)
+    sql_ctes: list[str] = Field(default_factory=list)
+    sql_joins: list[dict[str, str]] = Field(default_factory=list)
+    sql_has_aggregation: bool = False
+    sql_has_window_function: bool = False
+    sql_subquery_count: int = 0
+    # YAML-specific fields (populated when language=yaml)
+    yaml_root_keys: list[str] = Field(default_factory=list)
+    yaml_key_paths: list[str] = Field(default_factory=list)
+    yaml_depth: int = 0
+    yaml_list_keys: list[str] = Field(default_factory=list)
 
 
 class DatasetNode(BaseModel):

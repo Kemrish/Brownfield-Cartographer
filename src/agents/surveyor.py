@@ -6,7 +6,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Optional
 
-from src.analyzers.tree_sitter_analyzer import TreeSitterAnalyzer
+from src.analyzers.analyzer_service import AnalyzerService, get_analyzer_service
 from src.graph.knowledge_graph import KnowledgeGraph
 from src.models.schemas import ModuleNode
 
@@ -42,15 +42,36 @@ def _get_file_last_modified(path: Path) -> Optional[str]:
 
 
 class Surveyor:
-    """Static structure analyst: builds module graph, PageRank, git velocity, dead code candidates."""
+    """Static structure analyst: builds module graph, PageRank, git velocity, dead code candidates.
+    
+    Uses AnalyzerService for deep structural extraction across:
+    - Python: imports (with alias/relative tracking), functions, classes, decorators
+    - SQL: statement types, table references, CTEs, joins, aggregations
+    - YAML: hierarchical keys, nesting depth, list detection
+    """
 
     SKIP_DIRS = {".git", "node_modules", "__pycache__", ".venv", "venv", "target", "dbt_packages", "dist", "build", ".tox", ".mypy_cache"}
 
     def __init__(self, repo_root: str | Path) -> None:
         self.repo_root = Path(repo_root)
-        self.analyzer = TreeSitterAnalyzer()
+        self.analyzer_service: AnalyzerService = get_analyzer_service()
         self.graph = KnowledgeGraph()
-        self._stats = {"files_analyzed": 0, "languages": set(), "total_loc": 0}
+        self._stats = {
+            "files_analyzed": 0,
+            "languages": set(),
+            "total_loc": 0,
+            # SQL-specific stats
+            "sql_files": 0,
+            "sql_tables_referenced": set(),
+            "sql_tables_written": set(),
+            "sql_ctes_defined": 0,
+            "sql_with_aggregation": 0,
+            "sql_with_window_functions": 0,
+            # YAML-specific stats
+            "yaml_files": 0,
+            "yaml_total_keys": 0,
+            "yaml_max_depth": 0,
+        }
         self._high_velocity: list[str] = []
         self._dead_code_candidates: list[str] = []
         self._entry_points: list[str] = []
@@ -78,47 +99,103 @@ class Surveyor:
         return out
 
     def analyze_module(self, path: Path) -> Optional[ModuleNode]:
-        """Analyze one file and return ModuleNode."""
+        """Analyze one file and return ModuleNode with deep structural data."""
         try:
             source = path.read_text(encoding="utf-8", errors="replace")
         except Exception:
             return None
 
         path_posix = path.relative_to(self.repo_root).as_posix()
-        node = self.analyzer.analyze_module(path, source)
-        if node is None:
+        result = self.analyzer_service.analyze_file(path, source)
+
+        if result.module_node is None:
             return None
 
+        node = result.module_node
         node.path = path_posix
         node.last_modified = _get_file_last_modified(path)
 
-        # Track stats
+        # Track general stats
         self._stats["files_analyzed"] += 1
         self._stats["languages"].add(node.language)
         self._stats["total_loc"] += node.lines_of_code or 0
 
+        # Track SQL-specific stats
+        if node.language == "sql" and result.sql_structure:
+            self._stats["sql_files"] += 1
+            self._stats["sql_tables_referenced"].update(result.sql_structure.tables_referenced)
+            self._stats["sql_tables_written"].update(result.sql_structure.tables_written)
+            self._stats["sql_ctes_defined"] += len(result.sql_structure.ctes)
+            if result.sql_structure.has_aggregation:
+                self._stats["sql_with_aggregation"] += 1
+            if result.sql_structure.has_window_function:
+                self._stats["sql_with_window_functions"] += 1
+
+        # Track YAML-specific stats
+        if node.language == "yaml" and result.yaml_structure:
+            self._stats["yaml_files"] += 1
+            self._stats["yaml_total_keys"] += len(result.yaml_structure.key_paths)
+            self._stats["yaml_max_depth"] = max(
+                self._stats["yaml_max_depth"],
+                result.yaml_structure.depth
+            )
+
         return node
 
-    def resolve_import_to_path(self, imp: str, from_file: str) -> Optional[str]:
-        """Resolve Python import to a repo-relative path (simplified)."""
+    def resolve_import_to_path(self, imp: str, from_file: str, relative_level: int = 0) -> Optional[str]:
+        """Resolve Python import to a repo-relative path with proper relative import handling.
+        
+        Args:
+            imp: The import module name
+            from_file: The file containing the import
+            relative_level: Number of dots for relative imports (e.g., 2 for "from .. import x")
+        """
         from_path = Path(from_file)
-        if imp.startswith("."):
-            # relative
+
+        # Handle relative imports (from .x or from ..x import y)
+        if imp.startswith(".") or relative_level > 0:
+            # Count dots if in the import string itself
+            dot_count = relative_level
+            if imp.startswith("."):
+                stripped = imp.lstrip(".")
+                dot_count = len(imp) - len(stripped)
+                imp = stripped
+
+            # Navigate up directories based on dot count
             base = from_path.parent
-            parts = imp.lstrip(".").split(".")
-            for _ in parts:
-                base = base.parent if base != self.repo_root else base
-            candidate = (self.repo_root / base / from_path.stem).with_suffix(".py")
-            try:
-                rel = candidate.relative_to(self.repo_root)
-                return rel.as_posix()
-            except ValueError:
-                return None
-        # top-level: look for imp.replace(".", "/) or imp.replace(".", "/) + __init__.py
-        candidate = imp.replace(".", "/") + ".py"
+            for _ in range(dot_count):
+                if base != self.repo_root:
+                    base = base.parent
+
+            # Resolve the module path
+            if imp:
+                module_path = imp.replace(".", "/")
+                candidates = [
+                    self.repo_root / base / (module_path + ".py"),
+                    self.repo_root / base / module_path / "__init__.py",
+                ]
+            else:
+                # "from . import x" - look in the same package
+                candidates = [
+                    self.repo_root / base / "__init__.py",
+                ]
+
+            for c in candidates:
+                if c.exists():
+                    try:
+                        return c.relative_to(self.repo_root).as_posix()
+                    except ValueError:
+                        pass
+            return None
+
+        # Absolute import: look for module in repo
+        module_path = imp.replace(".", "/")
         candidates = [
-            self.repo_root / candidate,
-            self.repo_root / candidate.replace(".py", "/__init__.py"),
+            self.repo_root / (module_path + ".py"),
+            self.repo_root / module_path / "__init__.py",
+            # Also check src/ prefix common in Python projects
+            self.repo_root / "src" / (module_path + ".py"),
+            self.repo_root / "src" / module_path / "__init__.py",
         ]
         for c in candidates:
             if c.exists():
@@ -195,8 +272,8 @@ class Surveyor:
         return self.graph
 
     def get_stats(self) -> dict:
-        """Return analysis statistics."""
-        return {
+        """Return analysis statistics including language-specific insights."""
+        stats = {
             "files_analyzed": self._stats["files_analyzed"],
             "languages": list(self._stats["languages"]),
             "total_loc": self._stats["total_loc"],
@@ -205,6 +282,27 @@ class Surveyor:
             "dead_code_candidates": len(self._dead_code_candidates),
             "high_velocity_files": len(self._high_velocity),
         }
+
+        # SQL-specific stats
+        if self._stats["sql_files"] > 0:
+            stats["sql"] = {
+                "files": self._stats["sql_files"],
+                "tables_referenced": len(self._stats["sql_tables_referenced"]),
+                "tables_written": len(self._stats["sql_tables_written"]),
+                "ctes_defined": self._stats["sql_ctes_defined"],
+                "with_aggregation": self._stats["sql_with_aggregation"],
+                "with_window_functions": self._stats["sql_with_window_functions"],
+            }
+
+        # YAML-specific stats
+        if self._stats["yaml_files"] > 0:
+            stats["yaml"] = {
+                "files": self._stats["yaml_files"],
+                "total_keys": self._stats["yaml_total_keys"],
+                "max_depth": self._stats["yaml_max_depth"],
+            }
+
+        return stats
 
     def write_module_graph(self, out_dir: str | Path, metadata: Optional[dict] = None) -> str:
         """Write .cartography/module_graph.json. Returns path to file."""
