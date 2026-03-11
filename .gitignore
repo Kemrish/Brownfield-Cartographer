@@ -29,8 +29,8 @@ build/
 .env.local
 
 # Test artifacts and temp directories
-jaffle_shop_test/
-jaffle_shop_artifacts/
+# jaffle_shop_test/
+# jaffle_shop_artifacts/
 
 # OS files
 .DS_Store
@@ -38,7 +38,3 @@ Thumbs.db
 
 # Logs
 *.log
-
-# Internal notes (remove these lines if you want to commit them)
-INTERIM_SUBMISSION_ANSWERS.md
-WHAT_TO_EXPECT_JAFFLE_SHOP.md
