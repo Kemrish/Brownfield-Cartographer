@@ -1,0 +1,922 @@
+{
+  "metadata": {
+    "repo_path": "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\cartographer_9t4lo0_k",
+    "analyzed_at": "2026-03-11T14:41:23.332170",
+    "total_files": 32,
+    "total_modules": 32,
+    "total_datasets": 20,
+    "total_transformations": 13,
+    "languages_detected": [
+      "sql",
+      "yaml"
+    ],
+    "analysis_duration_seconds": 27.78,
+    "cartographer_version": "0.1.0"
+  },
+  "datasets": [
+    {
+      "name": "stg_customers",
+      "storage_type": "table",
+      "schema_snapshot": null,
+      "columns": [
+        "customer_id"
+      ],
+      "freshness_sla": null,
+      "owner": null,
+      "is_source_of_truth": false,
+      "is_external_source": false,
+      "source_file": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/staging/stg_customers.yml",
+      "line_range": null,
+      "dbt_source_name": null,
+      "dbt_ref_name": "stg_customers"
+    },
+    {
+      "name": "orders",
+      "storage_type": "table",
+      "schema_snapshot": null,
+      "columns": [
+        "order_id",
+        "customer_id",
+        "order_total",
+        "ordered_at",
+        "order_cost",
+        "is_food_order",
+        "is_drink_order"
+      ],
+      "freshness_sla": null,
+      "owner": null,
+      "is_source_of_truth": false,
+      "is_external_source": false,
+      "source_file": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/marts/orders.yml",
+      "line_range": null,
+      "dbt_source_name": null,
+      "dbt_ref_name": "orders"
+    },
+    {
+      "name": "customers",
+      "storage_type": "table",
+      "schema_snapshot": null,
+      "columns": [
+        "customer_id",
+        "customer_name",
+        "count_lifetime_orders",
+        "first_ordered_at",
+        "last_ordered_at",
+        "lifetime_spend_pretax",
+        "lifetime_tax_paid",
+        "lifetime_spend",
+        "customer_type"
+      ],
+      "freshness_sla": null,
+      "owner": null,
+      "is_source_of_truth": false,
+      "is_external_source": false,
+      "source_file": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/marts/customers.yml",
+      "line_range": null,
+      "dbt_source_name": null,
+      "dbt_ref_name": "customers"
+    },
+    {
+      "name": "stg_locations",
+      "storage_type": "table",
+      "schema_snapshot": null,
+      "columns": [
+        "location_id"
+      ],
+      "freshness_sla": null,
+      "owner": null,
+      "is_source_of_truth": false,
+      "is_external_source": false,
+      "source_file": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/staging/stg_locations.yml",
+      "line_range": null,
+      "dbt_source_name": null,
+      "dbt_ref_name": "stg_locations"
+    },
+    {
+      "name": "locations",
+      "storage_type": "table",
+      "schema_snapshot": null,
+      "columns": [],
+      "freshness_sla": null,
+      "owner": null,
+      "is_source_of_truth": false,
+      "is_external_source": false,
+      "source_file": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/marts/locations.sql",
+      "line_range": null,
+      "dbt_source_name": null,
+      "dbt_ref_name": null
+    },
+    {
+      "name": "metricflow_time_spine",
+      "storage_type": "table",
+      "schema_snapshot": null,
+      "columns": [],
+      "freshness_sla": null,
+      "owner": null,
+      "is_source_of_truth": false,
+      "is_external_source": false,
+      "source_file": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/marts/metricflow_time_spine.sql",
+      "line_range": null,
+      "dbt_source_name": null,
+      "dbt_ref_name": null
+    },
+    {
+      "name": "stg_orders",
+      "storage_type": "table",
+      "schema_snapshot": null,
+      "columns": [
+        "order_id"
+      ],
+      "freshness_sla": null,
+      "owner": null,
+      "is_source_of_truth": false,
+      "is_external_source": false,
+      "source_file": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/staging/stg_orders.yml",
+      "line_range": null,
+      "dbt_source_name": null,
+      "dbt_ref_name": "stg_orders"
+    },
+    {
+      "name": "order_items",
+      "storage_type": "table",
+      "schema_snapshot": null,
+      "columns": [
+        "order_item_id",
+        "order_id"
+      ],
+      "freshness_sla": null,
+      "owner": null,
+      "is_source_of_truth": false,
+      "is_external_source": false,
+      "source_file": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/marts/order_items.yml",
+      "line_range": null,
+      "dbt_source_name": null,
+      "dbt_ref_name": "order_items"
+    },
+    {
+      "name": "stg_order_items",
+      "storage_type": "table",
+      "schema_snapshot": null,
+      "columns": [
+        "order_item_id",
+        "order_id"
+      ],
+      "freshness_sla": null,
+      "owner": null,
+      "is_source_of_truth": false,
+      "is_external_source": false,
+      "source_file": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/staging/stg_order_items.yml",
+      "line_range": null,
+      "dbt_source_name": null,
+      "dbt_ref_name": "stg_order_items"
+    },
+    {
+      "name": "stg_products",
+      "storage_type": "table",
+      "schema_snapshot": null,
+      "columns": [
+        "product_id"
+      ],
+      "freshness_sla": null,
+      "owner": null,
+      "is_source_of_truth": false,
+      "is_external_source": false,
+      "source_file": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/staging/stg_products.yml",
+      "line_range": null,
+      "dbt_source_name": null,
+      "dbt_ref_name": "stg_products"
+    },
+    {
+      "name": "stg_supplies",
+      "storage_type": "table",
+      "schema_snapshot": null,
+      "columns": [
+        "supply_uuid"
+      ],
+      "freshness_sla": null,
+      "owner": null,
+      "is_source_of_truth": false,
+      "is_external_source": false,
+      "source_file": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/staging/stg_supplies.yml",
+      "line_range": null,
+      "dbt_source_name": null,
+      "dbt_ref_name": "stg_supplies"
+    },
+    {
+      "name": "products",
+      "storage_type": "table",
+      "schema_snapshot": null,
+      "columns": [],
+      "freshness_sla": null,
+      "owner": null,
+      "is_source_of_truth": false,
+      "is_external_source": false,
+      "source_file": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/marts/products.sql",
+      "line_range": null,
+      "dbt_source_name": null,
+      "dbt_ref_name": null
+    },
+    {
+      "name": "supplies",
+      "storage_type": "table",
+      "schema_snapshot": null,
+      "columns": [],
+      "freshness_sla": null,
+      "owner": null,
+      "is_source_of_truth": false,
+      "is_external_source": false,
+      "source_file": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/marts/supplies.sql",
+      "line_range": null,
+      "dbt_source_name": null,
+      "dbt_ref_name": null
+    },
+    {
+      "name": "ecom.raw_customers",
+      "storage_type": "table",
+      "schema_snapshot": null,
+      "columns": [],
+      "freshness_sla": null,
+      "owner": null,
+      "is_source_of_truth": true,
+      "is_external_source": true,
+      "source_file": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/staging/__sources.yml",
+      "line_range": null,
+      "dbt_source_name": "ecom",
+      "dbt_ref_name": null
+    },
+    {
+      "name": "ecom.raw_stores",
+      "storage_type": "table",
+      "schema_snapshot": null,
+      "columns": [],
+      "freshness_sla": null,
+      "owner": null,
+      "is_source_of_truth": true,
+      "is_external_source": true,
+      "source_file": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/staging/__sources.yml",
+      "line_range": null,
+      "dbt_source_name": "ecom",
+      "dbt_ref_name": null
+    },
+    {
+      "name": "ecom.raw_orders",
+      "storage_type": "table",
+      "schema_snapshot": null,
+      "columns": [],
+      "freshness_sla": null,
+      "owner": null,
+      "is_source_of_truth": true,
+      "is_external_source": true,
+      "source_file": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/staging/__sources.yml",
+      "line_range": null,
+      "dbt_source_name": "ecom",
+      "dbt_ref_name": null
+    },
+    {
+      "name": "ecom.raw_items",
+      "storage_type": "table",
+      "schema_snapshot": null,
+      "columns": [],
+      "freshness_sla": null,
+      "owner": null,
+      "is_source_of_truth": true,
+      "is_external_source": true,
+      "source_file": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/staging/__sources.yml",
+      "line_range": null,
+      "dbt_source_name": "ecom",
+      "dbt_ref_name": null
+    },
+    {
+      "name": "ecom.raw_products",
+      "storage_type": "table",
+      "schema_snapshot": null,
+      "columns": [],
+      "freshness_sla": null,
+      "owner": null,
+      "is_source_of_truth": true,
+      "is_external_source": true,
+      "source_file": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/staging/__sources.yml",
+      "line_range": null,
+      "dbt_source_name": "ecom",
+      "dbt_ref_name": null
+    },
+    {
+      "name": "ecom.raw_supplies",
+      "storage_type": "table",
+      "schema_snapshot": null,
+      "columns": [],
+      "freshness_sla": null,
+      "owner": null,
+      "is_source_of_truth": true,
+      "is_external_source": true,
+      "source_file": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/staging/__sources.yml",
+      "line_range": null,
+      "dbt_source_name": "ecom",
+      "dbt_ref_name": null
+    },
+    {
+      "name": "ecom",
+      "storage_type": "table",
+      "schema_snapshot": null,
+      "columns": [],
+      "freshness_sla": null,
+      "owner": null,
+      "is_source_of_truth": true,
+      "is_external_source": true,
+      "source_file": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/staging/__sources.yml",
+      "line_range": null,
+      "dbt_source_name": "ecom",
+      "dbt_ref_name": null
+    }
+  ],
+  "transformations": [
+    {
+      "id": "sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/marts/customers.sql",
+      "source_datasets": [
+        "stg_customers",
+        "orders"
+      ],
+      "target_datasets": [
+        "customers"
+      ],
+      "transformation_type": "dbt",
+      "source_file": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/marts/customers.sql",
+      "line_range": null,
+      "sql_query_if_applicable": "with\n\ncustomers as (\n\n    select * from {{ ref('stg_customers') }}\n\n),\n\norders as (\n\n    select * from {{ ref('orders') }}\n\n),\n\ncustomer_orders_summary as (\n\n    select\n        orders.customer_id,\n\n        count(distinct orders.order_id) as count_lifetime_orders,\n        count(distinct orders.order_id) > 1 as is_repeat_buyer,\n        min(orders.ordered_at) as first_ordered_at,\n        max(orders.ordered_at) as last_ordered_at,\n        sum(orders.subtotal) as lifetime_spend_pretax,\n        sum(orders.tax_paid) as lifetime_tax_paid,\n        sum(orders.order_total) as lifetime_spend\n\n    from orders\n\n    group by 1\n\n),\n\njoined as (\n\n    select\n        customers.*,\n\n        customer_orders_summary.count_lifetime_orders,\n        customer_orders_summary.first_ordered_at,\n        customer_orders_summary.last_ordered_at,\n        customer_orders_summary.lifetime_spend_pretax,\n        customer_orders_summary.lifetime_tax_paid,\n        customer_orders_summary.lifetime_spend,\n\n        case\n            when customer_orders_summary.is_repeat_buyer then 'returning'\n            else 'new'\n        end as customer_type\n\n    from customers\n\n    left join customer_orders_summary\n        on customers.customer_id = customer_orders_summary.customer_id\n\n)\n\nselect * from joined\n",
+      "dbt_refs": [
+        "stg_customers",
+        "orders"
+      ],
+      "dbt_sources": [],
+      "is_macro": false
+    },
+    {
+      "id": "sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/marts/locations.sql",
+      "source_datasets": [
+        "stg_locations"
+      ],
+      "target_datasets": [
+        "locations"
+      ],
+      "transformation_type": "dbt",
+      "source_file": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/marts/locations.sql",
+      "line_range": null,
+      "sql_query_if_applicable": "with\n\nlocations as (\n\n    select * from {{ ref('stg_locations') }}\n\n)\n\nselect * from locations\n",
+      "dbt_refs": [
+        "stg_locations"
+      ],
+      "dbt_sources": [],
+      "is_macro": false
+    },
+    {
+      "id": "sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/marts/metricflow_time_spine.sql",
+      "source_datasets": [],
+      "target_datasets": [
+        "metricflow_time_spine"
+      ],
+      "transformation_type": "sql",
+      "source_file": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/marts/metricflow_time_spine.sql",
+      "line_range": null,
+      "sql_query_if_applicable": "-- metricflow_time_spine.sql\nwith\n\ndays as (\n\n    --for BQ adapters use \"DATE('01/01/2000','mm/dd/yyyy')\"\n    {{ dbt_date.get_base_dates(n_dateparts=365*10, datepart=\"day\") }}\n\n),\n\ncast_to_date as (\n\n    select cast(date_day as date) as date_day\n\n    from days\n\n)\n\nselect * from cast_to_date\n",
+      "dbt_refs": [],
+      "dbt_sources": [],
+      "is_macro": false
+    },
+    {
+      "id": "sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/marts/orders.sql",
+      "source_datasets": [
+        "stg_orders",
+        "order_items"
+      ],
+      "target_datasets": [
+        "orders"
+      ],
+      "transformation_type": "dbt",
+      "source_file": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/marts/orders.sql",
+      "line_range": null,
+      "sql_query_if_applicable": "with\n\norders as (\n\n    select * from {{ ref('stg_orders') }}\n\n),\n\norder_items as (\n\n    select * from {{ ref('order_items') }}\n\n),\n\norder_items_summary as (\n\n    select\n        order_id,\n\n        sum(supply_cost) as order_cost,\n        sum(product_price) as order_items_subtotal,\n        count(order_item_id) as count_order_items,\n        sum(\n            case\n                when is_food_item then 1\n                else 0\n            end\n        ) as count_food_items,\n        sum(\n            case\n                when is_drink_item then 1\n                else 0\n            end\n        ) as count_drink_items\n\n    from order_items\n\n    group by 1\n\n),\n\ncompute_booleans as (\n\n    select\n        orders.*,\n\n        order_items_summary.order_cost,\n        order_items_summary.order_items_subtotal,\n        order_items_summary.count_food_items,\n        order_items_summary.count_drink_items,\n        order_items_summary.count_order_items,\n        order_items_summary.count_food_items > 0 as is_food_order,\n        order_items_summary.count_drink_items > 0 as is_drink_order\n\n    from orders\n\n    left join\n        order_items_summary\n        on orders.order_id = order_items_summary.order_id\n\n),\n\ncustomer_order_count as (\n\n    select\n        *,\n\n        row_number() over (\n            partition by customer_id\n            order by ordered_at asc\n        ) as customer_order_number\n\n    from compute_booleans\n\n)\n\nselect * from customer_order_count\n",
+      "dbt_refs": [
+        "stg_orders",
+        "order_items"
+      ],
+      "dbt_sources": [],
+      "is_macro": false
+    },
+    {
+      "id": "sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/marts/order_items.sql",
+      "source_datasets": [
+        "stg_order_items",
+        "stg_orders",
+        "stg_products",
+        "stg_supplies"
+      ],
+      "target_datasets": [
+        "order_items"
+      ],
+      "transformation_type": "dbt",
+      "source_file": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/marts/order_items.sql",
+      "line_range": null,
+      "sql_query_if_applicable": "with\n\norder_items as (\n\n    select * from {{ ref('stg_order_items') }}\n\n),\n\n\norders as (\n\n    select * from {{ ref('stg_orders') }}\n\n),\n\nproducts as (\n\n    select * from {{ ref('stg_products') }}\n\n),\n\nsupplies as (\n\n    select * from {{ ref('stg_supplies') }}\n\n),\n\norder_supplies_summary as (\n\n    select\n        product_id,\n\n        sum(supply_cost) as supply_cost\n\n    from supplies\n\n    group by 1\n\n),\n\njoined as (\n\n    select\n        order_items.*,\n\n        orders.ordered_at,\n\n        products.product_name,\n        products.product_price,\n        products.is_food_item,\n        products.is_drink_item,\n\n        order_supplies_summary.supply_cost\n\n    from order_items\n\n    left join orders on order_items.order_id = orders.order_id\n\n    left join products on order_items.product_id = products.product_id\n\n    left join order_supplies_summary\n        on order_items.product_id = order_supplies_summary.product_id\n\n)\n\nselect * from joined\n",
+      "dbt_refs": [
+        "stg_order_items",
+        "stg_orders",
+        "stg_products",
+        "stg_supplies"
+      ],
+      "dbt_sources": [],
+      "is_macro": false
+    },
+    {
+      "id": "sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/marts/products.sql",
+      "source_datasets": [
+        "stg_products"
+      ],
+      "target_datasets": [
+        "products"
+      ],
+      "transformation_type": "dbt",
+      "source_file": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/marts/products.sql",
+      "line_range": null,
+      "sql_query_if_applicable": "with\n\nproducts as (\n\n    select * from {{ ref('stg_products') }}\n\n)\n\nselect * from products\n",
+      "dbt_refs": [
+        "stg_products"
+      ],
+      "dbt_sources": [],
+      "is_macro": false
+    },
+    {
+      "id": "sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/marts/supplies.sql",
+      "source_datasets": [
+        "stg_supplies"
+      ],
+      "target_datasets": [
+        "supplies"
+      ],
+      "transformation_type": "dbt",
+      "source_file": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/marts/supplies.sql",
+      "line_range": null,
+      "sql_query_if_applicable": "with\n\nsupplies as (\n\n    select * from {{ ref('stg_supplies') }}\n\n)\n\nselect * from supplies\n",
+      "dbt_refs": [
+        "stg_supplies"
+      ],
+      "dbt_sources": [],
+      "is_macro": false
+    },
+    {
+      "id": "sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/staging/stg_customers.sql",
+      "source_datasets": [
+        "ecom.raw_customers"
+      ],
+      "target_datasets": [
+        "stg_customers"
+      ],
+      "transformation_type": "dbt",
+      "source_file": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/staging/stg_customers.sql",
+      "line_range": null,
+      "sql_query_if_applicable": "with\n\nsource as (\n\n    select * from {{ source('ecom', 'raw_customers') }}\n\n),\n\nrenamed as (\n\n    select\n\n        ----------  ids\n        id as customer_id,\n\n        ---------- text\n        name as customer_name\n\n    from source\n\n)\n\nselect * from renamed\n",
+      "dbt_refs": [],
+      "dbt_sources": [
+        "ecom.raw_customers"
+      ],
+      "is_macro": false
+    },
+    {
+      "id": "sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/staging/stg_locations.sql",
+      "source_datasets": [
+        "ecom.raw_stores"
+      ],
+      "target_datasets": [
+        "stg_locations"
+      ],
+      "transformation_type": "dbt",
+      "source_file": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/staging/stg_locations.sql",
+      "line_range": null,
+      "sql_query_if_applicable": "with\n\nsource as (\n\n    select * from {{ source('ecom', 'raw_stores') }}\n\n),\n\nrenamed as (\n\n    select\n\n        ----------  ids\n        id as location_id,\n\n        ---------- text\n        name as location_name,\n\n        ---------- numerics\n        tax_rate,\n\n        ---------- timestamps\n        {{ dbt.date_trunc('day', 'opened_at') }} as opened_date\n\n    from source\n\n)\n\nselect * from renamed\n",
+      "dbt_refs": [],
+      "dbt_sources": [
+        "ecom.raw_stores"
+      ],
+      "is_macro": false
+    },
+    {
+      "id": "sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/staging/stg_orders.sql",
+      "source_datasets": [
+        "ecom.raw_orders"
+      ],
+      "target_datasets": [
+        "stg_orders"
+      ],
+      "transformation_type": "dbt",
+      "source_file": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/staging/stg_orders.sql",
+      "line_range": null,
+      "sql_query_if_applicable": "with\n\nsource as (\n\n    select * from {{ source('ecom', 'raw_orders') }}\n\n),\n\nrenamed as (\n\n    select\n\n        ----------  ids\n        id as order_id,\n        store_id as location_id,\n        customer as customer_id,\n\n        ---------- numerics\n        subtotal as subtotal_cents,\n        tax_paid as tax_paid_cents,\n        order_total as order_total_cents,\n        {{ cents_to_dollars('subtotal') }} as subtotal,\n        {{ cents_to_dollars('tax_paid') }} as tax_paid,\n        {{ cents_to_dollars('order_total') }} as order_total,\n\n        ---------- timestamps\n        {{ dbt.date_trunc('day','ordered_at') }} as ordered_at\n\n    from source\n\n)\n\nselect * from renamed\n",
+      "dbt_refs": [],
+      "dbt_sources": [
+        "ecom.raw_orders"
+      ],
+      "is_macro": false
+    },
+    {
+      "id": "sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/staging/stg_order_items.sql",
+      "source_datasets": [
+        "ecom.raw_items"
+      ],
+      "target_datasets": [
+        "stg_order_items"
+      ],
+      "transformation_type": "dbt",
+      "source_file": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/staging/stg_order_items.sql",
+      "line_range": null,
+      "sql_query_if_applicable": "with\n\nsource as (\n\n    select * from {{ source('ecom', 'raw_items') }}\n\n),\n\nrenamed as (\n\n    select\n\n        ----------  ids\n        id as order_item_id,\n        order_id,\n        sku as product_id\n\n    from source\n\n)\n\nselect * from renamed\n",
+      "dbt_refs": [],
+      "dbt_sources": [
+        "ecom.raw_items"
+      ],
+      "is_macro": false
+    },
+    {
+      "id": "sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/staging/stg_products.sql",
+      "source_datasets": [
+        "ecom.raw_products"
+      ],
+      "target_datasets": [
+        "stg_products"
+      ],
+      "transformation_type": "dbt",
+      "source_file": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/staging/stg_products.sql",
+      "line_range": null,
+      "sql_query_if_applicable": "with\n\nsource as (\n\n    select * from {{ source('ecom', 'raw_products') }}\n\n),\n\nrenamed as (\n\n    select\n\n        ----------  ids\n        sku as product_id,\n\n        ---------- text\n        name as product_name,\n        type as product_type,\n        description as product_description,\n\n\n        ---------- numerics\n        {{ cents_to_dollars('price') }} as product_price,\n\n        ---------- booleans\n        coalesce(type = 'jaffle', false) as is_food_item,\n\n        coalesce(type = 'beverage', false) as is_drink_item\n\n    from source\n\n)\n\nselect * from renamed\n",
+      "dbt_refs": [],
+      "dbt_sources": [
+        "ecom.raw_products"
+      ],
+      "is_macro": false
+    },
+    {
+      "id": "sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/staging/stg_supplies.sql",
+      "source_datasets": [
+        "ecom.raw_supplies"
+      ],
+      "target_datasets": [
+        "stg_supplies"
+      ],
+      "transformation_type": "dbt",
+      "source_file": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/staging/stg_supplies.sql",
+      "line_range": null,
+      "sql_query_if_applicable": "with\n\nsource as (\n\n    select * from {{ source('ecom', 'raw_supplies') }}\n\n),\n\nrenamed as (\n\n    select\n\n        ----------  ids\n        {{ dbt_utils.generate_surrogate_key(['id', 'sku']) }} as supply_uuid,\n        id as supply_id,\n        sku as product_id,\n\n        ---------- text\n        name as supply_name,\n\n        ---------- numerics\n        {{ cents_to_dollars('cost') }} as supply_cost,\n\n        ---------- booleans\n        perishable as is_perishable_supply\n\n    from source\n\n)\n\nselect * from renamed\n",
+      "dbt_refs": [],
+      "dbt_sources": [
+        "ecom.raw_supplies"
+      ],
+      "is_macro": false
+    }
+  ],
+  "configs": [
+    {
+      "path": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/dbt_project.yml",
+      "config_type": "dbt_project",
+      "configures": [],
+      "variables": {
+        "dbt_date:time_zone": "America/Los_Angeles"
+      },
+      "source_file": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/dbt_project.yml"
+    },
+    {
+      "path": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/marts/customers.yml",
+      "config_type": "sources_yml",
+      "configures": [
+        "customers"
+      ],
+      "variables": {},
+      "source_file": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/marts/customers.yml"
+    },
+    {
+      "path": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/marts/orders.yml",
+      "config_type": "sources_yml",
+      "configures": [
+        "orders"
+      ],
+      "variables": {},
+      "source_file": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/marts/orders.yml"
+    },
+    {
+      "path": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/marts/order_items.yml",
+      "config_type": "sources_yml",
+      "configures": [
+        "order_items"
+      ],
+      "variables": {},
+      "source_file": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/marts/order_items.yml"
+    },
+    {
+      "path": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/staging/stg_customers.yml",
+      "config_type": "sources_yml",
+      "configures": [
+        "stg_customers"
+      ],
+      "variables": {},
+      "source_file": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/staging/stg_customers.yml"
+    },
+    {
+      "path": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/staging/stg_locations.yml",
+      "config_type": "sources_yml",
+      "configures": [
+        "stg_locations"
+      ],
+      "variables": {},
+      "source_file": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/staging/stg_locations.yml"
+    },
+    {
+      "path": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/staging/stg_orders.yml",
+      "config_type": "sources_yml",
+      "configures": [
+        "stg_orders"
+      ],
+      "variables": {},
+      "source_file": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/staging/stg_orders.yml"
+    },
+    {
+      "path": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/staging/stg_order_items.yml",
+      "config_type": "sources_yml",
+      "configures": [
+        "stg_order_items"
+      ],
+      "variables": {},
+      "source_file": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/staging/stg_order_items.yml"
+    },
+    {
+      "path": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/staging/stg_products.yml",
+      "config_type": "sources_yml",
+      "configures": [
+        "stg_products"
+      ],
+      "variables": {},
+      "source_file": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/staging/stg_products.yml"
+    },
+    {
+      "path": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/staging/stg_supplies.yml",
+      "config_type": "sources_yml",
+      "configures": [
+        "stg_supplies"
+      ],
+      "variables": {},
+      "source_file": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/staging/stg_supplies.yml"
+    },
+    {
+      "path": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/staging/__sources.yml",
+      "config_type": "sources_yml",
+      "configures": [
+        "ecom",
+        "ecom.raw_customers",
+        "ecom.raw_orders",
+        "ecom.raw_items",
+        "ecom.raw_stores",
+        "ecom.raw_products",
+        "ecom.raw_supplies"
+      ],
+      "variables": {},
+      "source_file": "C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/staging/__sources.yml"
+    }
+  ],
+  "edges": [
+    {
+      "source": "stg_customers",
+      "target": "sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/marts/customers.sql",
+      "edge_type": "CONSUMES",
+      "weight": null,
+      "metadata": null
+    },
+    {
+      "source": "orders",
+      "target": "sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/marts/customers.sql",
+      "edge_type": "CONSUMES",
+      "weight": null,
+      "metadata": null
+    },
+    {
+      "source": "sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/marts/customers.sql",
+      "target": "customers",
+      "edge_type": "PRODUCES",
+      "weight": null,
+      "metadata": null
+    },
+    {
+      "source": "stg_locations",
+      "target": "sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/marts/locations.sql",
+      "edge_type": "CONSUMES",
+      "weight": null,
+      "metadata": null
+    },
+    {
+      "source": "sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/marts/locations.sql",
+      "target": "locations",
+      "edge_type": "PRODUCES",
+      "weight": null,
+      "metadata": null
+    },
+    {
+      "source": "sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/marts/metricflow_time_spine.sql",
+      "target": "metricflow_time_spine",
+      "edge_type": "PRODUCES",
+      "weight": null,
+      "metadata": null
+    },
+    {
+      "source": "stg_orders",
+      "target": "sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/marts/orders.sql",
+      "edge_type": "CONSUMES",
+      "weight": null,
+      "metadata": null
+    },
+    {
+      "source": "stg_orders",
+      "target": "sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/marts/order_items.sql",
+      "edge_type": "CONSUMES",
+      "weight": null,
+      "metadata": null
+    },
+    {
+      "source": "order_items",
+      "target": "sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/marts/orders.sql",
+      "edge_type": "CONSUMES",
+      "weight": null,
+      "metadata": null
+    },
+    {
+      "source": "sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/marts/orders.sql",
+      "target": "orders",
+      "edge_type": "PRODUCES",
+      "weight": null,
+      "metadata": null
+    },
+    {
+      "source": "stg_order_items",
+      "target": "sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/marts/order_items.sql",
+      "edge_type": "CONSUMES",
+      "weight": null,
+      "metadata": null
+    },
+    {
+      "source": "stg_products",
+      "target": "sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/marts/order_items.sql",
+      "edge_type": "CONSUMES",
+      "weight": null,
+      "metadata": null
+    },
+    {
+      "source": "stg_products",
+      "target": "sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/marts/products.sql",
+      "edge_type": "CONSUMES",
+      "weight": null,
+      "metadata": null
+    },
+    {
+      "source": "stg_supplies",
+      "target": "sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/marts/order_items.sql",
+      "edge_type": "CONSUMES",
+      "weight": null,
+      "metadata": null
+    },
+    {
+      "source": "stg_supplies",
+      "target": "sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/marts/supplies.sql",
+      "edge_type": "CONSUMES",
+      "weight": null,
+      "metadata": null
+    },
+    {
+      "source": "sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/marts/order_items.sql",
+      "target": "order_items",
+      "edge_type": "PRODUCES",
+      "weight": null,
+      "metadata": null
+    },
+    {
+      "source": "sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/marts/products.sql",
+      "target": "products",
+      "edge_type": "PRODUCES",
+      "weight": null,
+      "metadata": null
+    },
+    {
+      "source": "sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/marts/supplies.sql",
+      "target": "supplies",
+      "edge_type": "PRODUCES",
+      "weight": null,
+      "metadata": null
+    },
+    {
+      "source": "ecom.raw_customers",
+      "target": "sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/staging/stg_customers.sql",
+      "edge_type": "CONSUMES",
+      "weight": null,
+      "metadata": null
+    },
+    {
+      "source": "sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/staging/stg_customers.sql",
+      "target": "stg_customers",
+      "edge_type": "PRODUCES",
+      "weight": null,
+      "metadata": null
+    },
+    {
+      "source": "ecom.raw_stores",
+      "target": "sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/staging/stg_locations.sql",
+      "edge_type": "CONSUMES",
+      "weight": null,
+      "metadata": null
+    },
+    {
+      "source": "sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/staging/stg_locations.sql",
+      "target": "stg_locations",
+      "edge_type": "PRODUCES",
+      "weight": null,
+      "metadata": null
+    },
+    {
+      "source": "ecom.raw_orders",
+      "target": "sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/staging/stg_orders.sql",
+      "edge_type": "CONSUMES",
+      "weight": null,
+      "metadata": null
+    },
+    {
+      "source": "sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/staging/stg_orders.sql",
+      "target": "stg_orders",
+      "edge_type": "PRODUCES",
+      "weight": null,
+      "metadata": null
+    },
+    {
+      "source": "ecom.raw_items",
+      "target": "sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/staging/stg_order_items.sql",
+      "edge_type": "CONSUMES",
+      "weight": null,
+      "metadata": null
+    },
+    {
+      "source": "sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/staging/stg_order_items.sql",
+      "target": "stg_order_items",
+      "edge_type": "PRODUCES",
+      "weight": null,
+      "metadata": null
+    },
+    {
+      "source": "ecom.raw_products",
+      "target": "sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/staging/stg_products.sql",
+      "edge_type": "CONSUMES",
+      "weight": null,
+      "metadata": null
+    },
+    {
+      "source": "sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/staging/stg_products.sql",
+      "target": "stg_products",
+      "edge_type": "PRODUCES",
+      "weight": null,
+      "metadata": null
+    },
+    {
+      "source": "ecom.raw_supplies",
+      "target": "sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/staging/stg_supplies.sql",
+      "edge_type": "CONSUMES",
+      "weight": null,
+      "metadata": null
+    },
+    {
+      "source": "sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/staging/stg_supplies.sql",
+      "target": "stg_supplies",
+      "edge_type": "PRODUCES",
+      "weight": null,
+      "metadata": null
+    }
+  ],
+  "sources": [
+    "sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/marts/metricflow_time_spine.sql",
+    "ecom.raw_customers",
+    "ecom.raw_stores",
+    "ecom.raw_orders",
+    "ecom.raw_items",
+    "ecom.raw_products",
+    "ecom.raw_supplies",
+    "ecom"
+  ],
+  "sinks": [
+    "customers",
+    "locations",
+    "metricflow_time_spine",
+    "products",
+    "supplies",
+    "ecom"
+  ],
+  "critical_path": [
+    "ecom.raw_items",
+    "sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/staging/stg_order_items.sql",
+    "stg_order_items",
+    "sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/marts/order_items.sql",
+    "order_items",
+    "sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/marts/orders.sql",
+    "orders",
+    "sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_9t4lo0_k/models/marts/customers.sql",
+    "customers"
+  ]
+}
