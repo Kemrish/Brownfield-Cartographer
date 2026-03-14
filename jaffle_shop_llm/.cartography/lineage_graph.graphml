@@ -1,0 +1,1039 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+  <key id="d22" for="edge" attr.name="edge_type" attr.type="string" />
+  <key id="d21" for="node" attr.name="is_macro" attr.type="boolean" />
+  <key id="d20" for="node" attr.name="dbt_sources" attr.type="string" />
+  <key id="d19" for="node" attr.name="dbt_refs" attr.type="string" />
+  <key id="d18" for="node" attr.name="sql_query_if_applicable" attr.type="string" />
+  <key id="d17" for="node" attr.name="transformation_type" attr.type="string" />
+  <key id="d16" for="node" attr.name="target_datasets" attr.type="string" />
+  <key id="d15" for="node" attr.name="source_datasets" attr.type="string" />
+  <key id="d14" for="node" attr.name="id" attr.type="string" />
+  <key id="d13" for="node" attr.name="label" attr.type="string" />
+  <key id="d12" for="node" attr.name="dbt_ref_name" attr.type="string" />
+  <key id="d11" for="node" attr.name="dbt_source_name" attr.type="string" />
+  <key id="d10" for="node" attr.name="line_range" attr.type="string" />
+  <key id="d9" for="node" attr.name="source_file" attr.type="string" />
+  <key id="d8" for="node" attr.name="is_external_source" attr.type="boolean" />
+  <key id="d7" for="node" attr.name="is_source_of_truth" attr.type="boolean" />
+  <key id="d6" for="node" attr.name="owner" attr.type="string" />
+  <key id="d5" for="node" attr.name="freshness_sla" attr.type="string" />
+  <key id="d4" for="node" attr.name="columns" attr.type="string" />
+  <key id="d3" for="node" attr.name="schema_snapshot" attr.type="string" />
+  <key id="d2" for="node" attr.name="storage_type" attr.type="string" />
+  <key id="d1" for="node" attr.name="name" attr.type="string" />
+  <key id="d0" for="node" attr.name="kind" attr.type="string" />
+  <graph edgedefault="directed">
+    <node id="stg_customers">
+      <data key="d0">dataset</data>
+      <data key="d1">stg_customers</data>
+      <data key="d2">table</data>
+      <data key="d3" />
+      <data key="d4">['customer_id']</data>
+      <data key="d5" />
+      <data key="d6" />
+      <data key="d7">False</data>
+      <data key="d8">False</data>
+      <data key="d9">C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/staging/stg_customers.yml</data>
+      <data key="d10" />
+      <data key="d11" />
+      <data key="d12">stg_customers</data>
+      <data key="d13">stg_customers</data>
+    </node>
+    <node id="orders">
+      <data key="d0">dataset</data>
+      <data key="d1">orders</data>
+      <data key="d2">table</data>
+      <data key="d3" />
+      <data key="d4">['order_id', 'customer_id', 'order_total', 'ordered_at', 'order_cost', 'is_food_order', 'is_drink_order']</data>
+      <data key="d5" />
+      <data key="d6" />
+      <data key="d7">False</data>
+      <data key="d8">False</data>
+      <data key="d9">C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/marts/orders.yml</data>
+      <data key="d10" />
+      <data key="d11" />
+      <data key="d12">orders</data>
+      <data key="d13">orders</data>
+    </node>
+    <node id="customers">
+      <data key="d0">dataset</data>
+      <data key="d1">customers</data>
+      <data key="d2">table</data>
+      <data key="d3" />
+      <data key="d4">['customer_id', 'customer_name', 'count_lifetime_orders', 'first_ordered_at', 'last_ordered_at', 'lifetime_spend_pretax', 'lifetime_tax_paid', 'lifetime_spend', 'customer_type']</data>
+      <data key="d5" />
+      <data key="d6" />
+      <data key="d7">False</data>
+      <data key="d8">False</data>
+      <data key="d9">C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/marts/customers.yml</data>
+      <data key="d10" />
+      <data key="d11" />
+      <data key="d12">customers</data>
+      <data key="d13">customers</data>
+    </node>
+    <node id="sql_C__Users_ADMINI~1_AppData_Local_Temp_cartographer_x85cj1vb_models_marts_customers.sql">
+      <data key="d0">transformation</data>
+      <data key="d14">sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/marts/customers.sql</data>
+      <data key="d15">['stg_customers', 'orders']</data>
+      <data key="d16">['customers']</data>
+      <data key="d17">dbt</data>
+      <data key="d9">C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/marts/customers.sql</data>
+      <data key="d10" />
+      <data key="d18">with
+
+customers as (
+
+    select * from {{ ref('stg_customers') }}
+
+),
+
+orders as (
+
+    select * from {{ ref('orders') }}
+
+),
+
+customer_orders_summary as (
+
+    select
+        orders.customer_id,
+
+        count(distinct orders.order_id) as count_lifetime_orders,
+        count(distinct orders.order_id) &gt; 1 as is_repeat_buyer,
+        min(orders.ordered_at) as first_ordered_at,
+        max(orders.ordered_at) as last_ordered_at,
+        sum(orders.subtotal) as lifetime_spend_pretax,
+        sum(orders.tax_paid) as lifetime_tax_paid,
+        sum(orders.order_total) as lifetime_spend
+
+    from orders
+
+    group by 1
+
+),
+
+joined as (
+
+    select
+        customers.*,
+
+        customer_orders_summary.count_lifetime_orders,
+        customer_orders_summary.first_ordered_at,
+        customer_orders_summary.last_ordered_at,
+        customer_orders_summary.lifetime_spend_pretax,
+        customer_orders_summary.lifetime_tax_paid,
+        customer_orders_summary.lifetime_spend,
+
+        case
+            when customer_orders_summary.is_repeat_buyer then 'returning'
+            else 'new'
+        end as customer_type
+
+    from customers
+
+    left join customer_orders_summary
+        on customers.customer_id = customer_orders_summary.customer_id
+
+)
+
+select * from joined
+</data>
+      <data key="d19">['stg_customers', 'orders']</data>
+      <data key="d20">[]</data>
+      <data key="d21">False</data>
+      <data key="d13">sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/marts/customers.sql</data>
+    </node>
+    <node id="stg_locations">
+      <data key="d0">dataset</data>
+      <data key="d1">stg_locations</data>
+      <data key="d2">table</data>
+      <data key="d3" />
+      <data key="d4">['location_id']</data>
+      <data key="d5" />
+      <data key="d6" />
+      <data key="d7">False</data>
+      <data key="d8">False</data>
+      <data key="d9">C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/staging/stg_locations.yml</data>
+      <data key="d10" />
+      <data key="d11" />
+      <data key="d12">stg_locations</data>
+      <data key="d13">stg_locations</data>
+    </node>
+    <node id="locations">
+      <data key="d0">dataset</data>
+      <data key="d1">locations</data>
+      <data key="d2">table</data>
+      <data key="d3" />
+      <data key="d4">[]</data>
+      <data key="d5" />
+      <data key="d6" />
+      <data key="d7">False</data>
+      <data key="d8">False</data>
+      <data key="d9">C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/marts/locations.sql</data>
+      <data key="d10" />
+      <data key="d11" />
+      <data key="d12" />
+      <data key="d13">locations</data>
+    </node>
+    <node id="sql_C__Users_ADMINI~1_AppData_Local_Temp_cartographer_x85cj1vb_models_marts_locations.sql">
+      <data key="d0">transformation</data>
+      <data key="d14">sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/marts/locations.sql</data>
+      <data key="d15">['stg_locations']</data>
+      <data key="d16">['locations']</data>
+      <data key="d17">dbt</data>
+      <data key="d9">C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/marts/locations.sql</data>
+      <data key="d10" />
+      <data key="d18">with
+
+locations as (
+
+    select * from {{ ref('stg_locations') }}
+
+)
+
+select * from locations
+</data>
+      <data key="d19">['stg_locations']</data>
+      <data key="d20">[]</data>
+      <data key="d21">False</data>
+      <data key="d13">sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/marts/locations.sql</data>
+    </node>
+    <node id="metricflow_time_spine">
+      <data key="d0">dataset</data>
+      <data key="d1">metricflow_time_spine</data>
+      <data key="d2">table</data>
+      <data key="d3" />
+      <data key="d4">[]</data>
+      <data key="d5" />
+      <data key="d6" />
+      <data key="d7">False</data>
+      <data key="d8">False</data>
+      <data key="d9">C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/marts/metricflow_time_spine.sql</data>
+      <data key="d10" />
+      <data key="d11" />
+      <data key="d12" />
+      <data key="d13">metricflow_time_spine</data>
+    </node>
+    <node id="sql_C__Users_ADMINI~1_AppData_Local_Temp_cartographer_x85cj1vb_models_marts_metricflow_time_spine.sql">
+      <data key="d0">transformation</data>
+      <data key="d14">sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/marts/metricflow_time_spine.sql</data>
+      <data key="d15">[]</data>
+      <data key="d16">['metricflow_time_spine']</data>
+      <data key="d17">sql</data>
+      <data key="d9">C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/marts/metricflow_time_spine.sql</data>
+      <data key="d10" />
+      <data key="d18">-- metricflow_time_spine.sql
+with
+
+days as (
+
+    --for BQ adapters use "DATE('01/01/2000','mm/dd/yyyy')"
+    {{ dbt_date.get_base_dates(n_dateparts=365*10, datepart="day") }}
+
+),
+
+cast_to_date as (
+
+    select cast(date_day as date) as date_day
+
+    from days
+
+)
+
+select * from cast_to_date
+</data>
+      <data key="d19">[]</data>
+      <data key="d20">[]</data>
+      <data key="d21">False</data>
+      <data key="d13">sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/marts/metricflow_time_spine.sql</data>
+    </node>
+    <node id="stg_orders">
+      <data key="d0">dataset</data>
+      <data key="d1">stg_orders</data>
+      <data key="d2">table</data>
+      <data key="d3" />
+      <data key="d4">['order_id']</data>
+      <data key="d5" />
+      <data key="d6" />
+      <data key="d7">False</data>
+      <data key="d8">False</data>
+      <data key="d9">C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/staging/stg_orders.yml</data>
+      <data key="d10" />
+      <data key="d11" />
+      <data key="d12">stg_orders</data>
+      <data key="d13">stg_orders</data>
+    </node>
+    <node id="order_items">
+      <data key="d0">dataset</data>
+      <data key="d1">order_items</data>
+      <data key="d2">table</data>
+      <data key="d3" />
+      <data key="d4">['order_item_id', 'order_id']</data>
+      <data key="d5" />
+      <data key="d6" />
+      <data key="d7">False</data>
+      <data key="d8">False</data>
+      <data key="d9">C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/marts/order_items.yml</data>
+      <data key="d10" />
+      <data key="d11" />
+      <data key="d12">order_items</data>
+      <data key="d13">order_items</data>
+    </node>
+    <node id="sql_C__Users_ADMINI~1_AppData_Local_Temp_cartographer_x85cj1vb_models_marts_orders.sql">
+      <data key="d0">transformation</data>
+      <data key="d14">sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/marts/orders.sql</data>
+      <data key="d15">['stg_orders', 'order_items']</data>
+      <data key="d16">['orders']</data>
+      <data key="d17">dbt</data>
+      <data key="d9">C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/marts/orders.sql</data>
+      <data key="d10" />
+      <data key="d18">with
+
+orders as (
+
+    select * from {{ ref('stg_orders') }}
+
+),
+
+order_items as (
+
+    select * from {{ ref('order_items') }}
+
+),
+
+order_items_summary as (
+
+    select
+        order_id,
+
+        sum(supply_cost) as order_cost,
+        sum(product_price) as order_items_subtotal,
+        count(order_item_id) as count_order_items,
+        sum(
+            case
+                when is_food_item then 1
+                else 0
+            end
+        ) as count_food_items,
+        sum(
+            case
+                when is_drink_item then 1
+                else 0
+            end
+        ) as count_drink_items
+
+    from order_items
+
+    group by 1
+
+),
+
+compute_booleans as (
+
+    select
+        orders.*,
+
+        order_items_summary.order_cost,
+        order_items_summary.order_items_subtotal,
+        order_items_summary.count_food_items,
+        order_items_summary.count_drink_items,
+        order_items_summary.count_order_items,
+        order_items_summary.count_food_items &gt; 0 as is_food_order,
+        order_items_summary.count_drink_items &gt; 0 as is_drink_order
+
+    from orders
+
+    left join
+        order_items_summary
+        on orders.order_id = order_items_summary.order_id
+
+),
+
+customer_order_count as (
+
+    select
+        *,
+
+        row_number() over (
+            partition by customer_id
+            order by ordered_at asc
+        ) as customer_order_number
+
+    from compute_booleans
+
+)
+
+select * from customer_order_count
+</data>
+      <data key="d19">['stg_orders', 'order_items']</data>
+      <data key="d20">[]</data>
+      <data key="d21">False</data>
+      <data key="d13">sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/marts/orders.sql</data>
+    </node>
+    <node id="stg_order_items">
+      <data key="d0">dataset</data>
+      <data key="d1">stg_order_items</data>
+      <data key="d2">table</data>
+      <data key="d3" />
+      <data key="d4">['order_item_id', 'order_id']</data>
+      <data key="d5" />
+      <data key="d6" />
+      <data key="d7">False</data>
+      <data key="d8">False</data>
+      <data key="d9">C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/staging/stg_order_items.yml</data>
+      <data key="d10" />
+      <data key="d11" />
+      <data key="d12">stg_order_items</data>
+      <data key="d13">stg_order_items</data>
+    </node>
+    <node id="stg_products">
+      <data key="d0">dataset</data>
+      <data key="d1">stg_products</data>
+      <data key="d2">table</data>
+      <data key="d3" />
+      <data key="d4">['product_id']</data>
+      <data key="d5" />
+      <data key="d6" />
+      <data key="d7">False</data>
+      <data key="d8">False</data>
+      <data key="d9">C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/staging/stg_products.yml</data>
+      <data key="d10" />
+      <data key="d11" />
+      <data key="d12">stg_products</data>
+      <data key="d13">stg_products</data>
+    </node>
+    <node id="stg_supplies">
+      <data key="d0">dataset</data>
+      <data key="d1">stg_supplies</data>
+      <data key="d2">table</data>
+      <data key="d3" />
+      <data key="d4">['supply_uuid']</data>
+      <data key="d5" />
+      <data key="d6" />
+      <data key="d7">False</data>
+      <data key="d8">False</data>
+      <data key="d9">C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/staging/stg_supplies.yml</data>
+      <data key="d10" />
+      <data key="d11" />
+      <data key="d12">stg_supplies</data>
+      <data key="d13">stg_supplies</data>
+    </node>
+    <node id="sql_C__Users_ADMINI~1_AppData_Local_Temp_cartographer_x85cj1vb_models_marts_order_items.sql">
+      <data key="d0">transformation</data>
+      <data key="d14">sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/marts/order_items.sql</data>
+      <data key="d15">['stg_order_items', 'stg_orders', 'stg_products', 'stg_supplies']</data>
+      <data key="d16">['order_items']</data>
+      <data key="d17">dbt</data>
+      <data key="d9">C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/marts/order_items.sql</data>
+      <data key="d10" />
+      <data key="d18">with
+
+order_items as (
+
+    select * from {{ ref('stg_order_items') }}
+
+),
+
+
+orders as (
+
+    select * from {{ ref('stg_orders') }}
+
+),
+
+products as (
+
+    select * from {{ ref('stg_products') }}
+
+),
+
+supplies as (
+
+    select * from {{ ref('stg_supplies') }}
+
+),
+
+order_supplies_summary as (
+
+    select
+        product_id,
+
+        sum(supply_cost) as supply_cost
+
+    from supplies
+
+    group by 1
+
+),
+
+joined as (
+
+    select
+        order_items.*,
+
+        orders.ordered_at,
+
+        products.product_name,
+        products.product_price,
+        products.is_food_item,
+        products.is_drink_item,
+
+        order_supplies_summary.supply_cost
+
+    from order_items
+
+    left join orders on order_items.order_id = orders.order_id
+
+    left join products on order_items.product_id = products.product_id
+
+    left join order_supplies_summary
+        on order_items.product_id = order_supplies_summary.product_id
+
+)
+
+select * from joined
+</data>
+      <data key="d19">['stg_order_items', 'stg_orders', 'stg_products', 'stg_supplies']</data>
+      <data key="d20">[]</data>
+      <data key="d21">False</data>
+      <data key="d13">sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/marts/order_items.sql</data>
+    </node>
+    <node id="products">
+      <data key="d0">dataset</data>
+      <data key="d1">products</data>
+      <data key="d2">table</data>
+      <data key="d3" />
+      <data key="d4">[]</data>
+      <data key="d5" />
+      <data key="d6" />
+      <data key="d7">False</data>
+      <data key="d8">False</data>
+      <data key="d9">C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/marts/products.sql</data>
+      <data key="d10" />
+      <data key="d11" />
+      <data key="d12" />
+      <data key="d13">products</data>
+    </node>
+    <node id="sql_C__Users_ADMINI~1_AppData_Local_Temp_cartographer_x85cj1vb_models_marts_products.sql">
+      <data key="d0">transformation</data>
+      <data key="d14">sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/marts/products.sql</data>
+      <data key="d15">['stg_products']</data>
+      <data key="d16">['products']</data>
+      <data key="d17">dbt</data>
+      <data key="d9">C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/marts/products.sql</data>
+      <data key="d10" />
+      <data key="d18">with
+
+products as (
+
+    select * from {{ ref('stg_products') }}
+
+)
+
+select * from products
+</data>
+      <data key="d19">['stg_products']</data>
+      <data key="d20">[]</data>
+      <data key="d21">False</data>
+      <data key="d13">sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/marts/products.sql</data>
+    </node>
+    <node id="supplies">
+      <data key="d0">dataset</data>
+      <data key="d1">supplies</data>
+      <data key="d2">table</data>
+      <data key="d3" />
+      <data key="d4">[]</data>
+      <data key="d5" />
+      <data key="d6" />
+      <data key="d7">False</data>
+      <data key="d8">False</data>
+      <data key="d9">C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/marts/supplies.sql</data>
+      <data key="d10" />
+      <data key="d11" />
+      <data key="d12" />
+      <data key="d13">supplies</data>
+    </node>
+    <node id="sql_C__Users_ADMINI~1_AppData_Local_Temp_cartographer_x85cj1vb_models_marts_supplies.sql">
+      <data key="d0">transformation</data>
+      <data key="d14">sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/marts/supplies.sql</data>
+      <data key="d15">['stg_supplies']</data>
+      <data key="d16">['supplies']</data>
+      <data key="d17">dbt</data>
+      <data key="d9">C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/marts/supplies.sql</data>
+      <data key="d10" />
+      <data key="d18">with
+
+supplies as (
+
+    select * from {{ ref('stg_supplies') }}
+
+)
+
+select * from supplies
+</data>
+      <data key="d19">['stg_supplies']</data>
+      <data key="d20">[]</data>
+      <data key="d21">False</data>
+      <data key="d13">sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/marts/supplies.sql</data>
+    </node>
+    <node id="ecom.raw_customers">
+      <data key="d0">dataset</data>
+      <data key="d1">ecom.raw_customers</data>
+      <data key="d2">table</data>
+      <data key="d3" />
+      <data key="d4">[]</data>
+      <data key="d5" />
+      <data key="d6" />
+      <data key="d7">True</data>
+      <data key="d8">True</data>
+      <data key="d9">C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/staging/__sources.yml</data>
+      <data key="d10" />
+      <data key="d11">ecom</data>
+      <data key="d12" />
+      <data key="d13">ecom.raw_customers</data>
+    </node>
+    <node id="sql_C__Users_ADMINI~1_AppData_Local_Temp_cartographer_x85cj1vb_models_staging_stg_customers.sql">
+      <data key="d0">transformation</data>
+      <data key="d14">sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/staging/stg_customers.sql</data>
+      <data key="d15">['ecom.raw_customers']</data>
+      <data key="d16">['stg_customers']</data>
+      <data key="d17">dbt</data>
+      <data key="d9">C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/staging/stg_customers.sql</data>
+      <data key="d10" />
+      <data key="d18">with
+
+source as (
+
+    select * from {{ source('ecom', 'raw_customers') }}
+
+),
+
+renamed as (
+
+    select
+
+        ----------  ids
+        id as customer_id,
+
+        ---------- text
+        name as customer_name
+
+    from source
+
+)
+
+select * from renamed
+</data>
+      <data key="d19">[]</data>
+      <data key="d20">['ecom.raw_customers']</data>
+      <data key="d21">False</data>
+      <data key="d13">sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/staging/stg_customers.sql</data>
+    </node>
+    <node id="ecom.raw_stores">
+      <data key="d0">dataset</data>
+      <data key="d1">ecom.raw_stores</data>
+      <data key="d2">table</data>
+      <data key="d3" />
+      <data key="d4">[]</data>
+      <data key="d5" />
+      <data key="d6" />
+      <data key="d7">True</data>
+      <data key="d8">True</data>
+      <data key="d9">C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/staging/__sources.yml</data>
+      <data key="d10" />
+      <data key="d11">ecom</data>
+      <data key="d12" />
+      <data key="d13">ecom.raw_stores</data>
+    </node>
+    <node id="sql_C__Users_ADMINI~1_AppData_Local_Temp_cartographer_x85cj1vb_models_staging_stg_locations.sql">
+      <data key="d0">transformation</data>
+      <data key="d14">sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/staging/stg_locations.sql</data>
+      <data key="d15">['ecom.raw_stores']</data>
+      <data key="d16">['stg_locations']</data>
+      <data key="d17">dbt</data>
+      <data key="d9">C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/staging/stg_locations.sql</data>
+      <data key="d10" />
+      <data key="d18">with
+
+source as (
+
+    select * from {{ source('ecom', 'raw_stores') }}
+
+),
+
+renamed as (
+
+    select
+
+        ----------  ids
+        id as location_id,
+
+        ---------- text
+        name as location_name,
+
+        ---------- numerics
+        tax_rate,
+
+        ---------- timestamps
+        {{ dbt.date_trunc('day', 'opened_at') }} as opened_date
+
+    from source
+
+)
+
+select * from renamed
+</data>
+      <data key="d19">[]</data>
+      <data key="d20">['ecom.raw_stores']</data>
+      <data key="d21">False</data>
+      <data key="d13">sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/staging/stg_locations.sql</data>
+    </node>
+    <node id="ecom.raw_orders">
+      <data key="d0">dataset</data>
+      <data key="d1">ecom.raw_orders</data>
+      <data key="d2">table</data>
+      <data key="d3" />
+      <data key="d4">[]</data>
+      <data key="d5" />
+      <data key="d6" />
+      <data key="d7">True</data>
+      <data key="d8">True</data>
+      <data key="d9">C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/staging/__sources.yml</data>
+      <data key="d10" />
+      <data key="d11">ecom</data>
+      <data key="d12" />
+      <data key="d13">ecom.raw_orders</data>
+    </node>
+    <node id="sql_C__Users_ADMINI~1_AppData_Local_Temp_cartographer_x85cj1vb_models_staging_stg_orders.sql">
+      <data key="d0">transformation</data>
+      <data key="d14">sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/staging/stg_orders.sql</data>
+      <data key="d15">['ecom.raw_orders']</data>
+      <data key="d16">['stg_orders']</data>
+      <data key="d17">dbt</data>
+      <data key="d9">C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/staging/stg_orders.sql</data>
+      <data key="d10" />
+      <data key="d18">with
+
+source as (
+
+    select * from {{ source('ecom', 'raw_orders') }}
+
+),
+
+renamed as (
+
+    select
+
+        ----------  ids
+        id as order_id,
+        store_id as location_id,
+        customer as customer_id,
+
+        ---------- numerics
+        subtotal as subtotal_cents,
+        tax_paid as tax_paid_cents,
+        order_total as order_total_cents,
+        {{ cents_to_dollars('subtotal') }} as subtotal,
+        {{ cents_to_dollars('tax_paid') }} as tax_paid,
+        {{ cents_to_dollars('order_total') }} as order_total,
+
+        ---------- timestamps
+        {{ dbt.date_trunc('day','ordered_at') }} as ordered_at
+
+    from source
+
+)
+
+select * from renamed
+</data>
+      <data key="d19">[]</data>
+      <data key="d20">['ecom.raw_orders']</data>
+      <data key="d21">False</data>
+      <data key="d13">sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/staging/stg_orders.sql</data>
+    </node>
+    <node id="ecom.raw_items">
+      <data key="d0">dataset</data>
+      <data key="d1">ecom.raw_items</data>
+      <data key="d2">table</data>
+      <data key="d3" />
+      <data key="d4">[]</data>
+      <data key="d5" />
+      <data key="d6" />
+      <data key="d7">True</data>
+      <data key="d8">True</data>
+      <data key="d9">C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/staging/__sources.yml</data>
+      <data key="d10" />
+      <data key="d11">ecom</data>
+      <data key="d12" />
+      <data key="d13">ecom.raw_items</data>
+    </node>
+    <node id="sql_C__Users_ADMINI~1_AppData_Local_Temp_cartographer_x85cj1vb_models_staging_stg_order_items.sql">
+      <data key="d0">transformation</data>
+      <data key="d14">sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/staging/stg_order_items.sql</data>
+      <data key="d15">['ecom.raw_items']</data>
+      <data key="d16">['stg_order_items']</data>
+      <data key="d17">dbt</data>
+      <data key="d9">C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/staging/stg_order_items.sql</data>
+      <data key="d10" />
+      <data key="d18">with
+
+source as (
+
+    select * from {{ source('ecom', 'raw_items') }}
+
+),
+
+renamed as (
+
+    select
+
+        ----------  ids
+        id as order_item_id,
+        order_id,
+        sku as product_id
+
+    from source
+
+)
+
+select * from renamed
+</data>
+      <data key="d19">[]</data>
+      <data key="d20">['ecom.raw_items']</data>
+      <data key="d21">False</data>
+      <data key="d13">sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/staging/stg_order_items.sql</data>
+    </node>
+    <node id="ecom.raw_products">
+      <data key="d0">dataset</data>
+      <data key="d1">ecom.raw_products</data>
+      <data key="d2">table</data>
+      <data key="d3" />
+      <data key="d4">[]</data>
+      <data key="d5" />
+      <data key="d6" />
+      <data key="d7">True</data>
+      <data key="d8">True</data>
+      <data key="d9">C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/staging/__sources.yml</data>
+      <data key="d10" />
+      <data key="d11">ecom</data>
+      <data key="d12" />
+      <data key="d13">ecom.raw_products</data>
+    </node>
+    <node id="sql_C__Users_ADMINI~1_AppData_Local_Temp_cartographer_x85cj1vb_models_staging_stg_products.sql">
+      <data key="d0">transformation</data>
+      <data key="d14">sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/staging/stg_products.sql</data>
+      <data key="d15">['ecom.raw_products']</data>
+      <data key="d16">['stg_products']</data>
+      <data key="d17">dbt</data>
+      <data key="d9">C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/staging/stg_products.sql</data>
+      <data key="d10" />
+      <data key="d18">with
+
+source as (
+
+    select * from {{ source('ecom', 'raw_products') }}
+
+),
+
+renamed as (
+
+    select
+
+        ----------  ids
+        sku as product_id,
+
+        ---------- text
+        name as product_name,
+        type as product_type,
+        description as product_description,
+
+
+        ---------- numerics
+        {{ cents_to_dollars('price') }} as product_price,
+
+        ---------- booleans
+        coalesce(type = 'jaffle', false) as is_food_item,
+
+        coalesce(type = 'beverage', false) as is_drink_item
+
+    from source
+
+)
+
+select * from renamed
+</data>
+      <data key="d19">[]</data>
+      <data key="d20">['ecom.raw_products']</data>
+      <data key="d21">False</data>
+      <data key="d13">sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/staging/stg_products.sql</data>
+    </node>
+    <node id="ecom.raw_supplies">
+      <data key="d0">dataset</data>
+      <data key="d1">ecom.raw_supplies</data>
+      <data key="d2">table</data>
+      <data key="d3" />
+      <data key="d4">[]</data>
+      <data key="d5" />
+      <data key="d6" />
+      <data key="d7">True</data>
+      <data key="d8">True</data>
+      <data key="d9">C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/staging/__sources.yml</data>
+      <data key="d10" />
+      <data key="d11">ecom</data>
+      <data key="d12" />
+      <data key="d13">ecom.raw_supplies</data>
+    </node>
+    <node id="sql_C__Users_ADMINI~1_AppData_Local_Temp_cartographer_x85cj1vb_models_staging_stg_supplies.sql">
+      <data key="d0">transformation</data>
+      <data key="d14">sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/staging/stg_supplies.sql</data>
+      <data key="d15">['ecom.raw_supplies']</data>
+      <data key="d16">['stg_supplies']</data>
+      <data key="d17">dbt</data>
+      <data key="d9">C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/staging/stg_supplies.sql</data>
+      <data key="d10" />
+      <data key="d18">with
+
+source as (
+
+    select * from {{ source('ecom', 'raw_supplies') }}
+
+),
+
+renamed as (
+
+    select
+
+        ----------  ids
+        {{ dbt_utils.generate_surrogate_key(['id', 'sku']) }} as supply_uuid,
+        id as supply_id,
+        sku as product_id,
+
+        ---------- text
+        name as supply_name,
+
+        ---------- numerics
+        {{ cents_to_dollars('cost') }} as supply_cost,
+
+        ---------- booleans
+        perishable as is_perishable_supply
+
+    from source
+
+)
+
+select * from renamed
+</data>
+      <data key="d19">[]</data>
+      <data key="d20">['ecom.raw_supplies']</data>
+      <data key="d21">False</data>
+      <data key="d13">sql:C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/staging/stg_supplies.sql</data>
+    </node>
+    <node id="ecom">
+      <data key="d0">dataset</data>
+      <data key="d1">ecom</data>
+      <data key="d2">table</data>
+      <data key="d3" />
+      <data key="d4">[]</data>
+      <data key="d5" />
+      <data key="d6" />
+      <data key="d7">True</data>
+      <data key="d8">True</data>
+      <data key="d9">C:/Users/ADMINI~1/AppData/Local/Temp/cartographer_x85cj1vb/models/staging/__sources.yml</data>
+      <data key="d10" />
+      <data key="d11">ecom</data>
+      <data key="d12" />
+      <data key="d13">ecom</data>
+    </node>
+    <edge source="stg_customers" target="sql_C__Users_ADMINI~1_AppData_Local_Temp_cartographer_x85cj1vb_models_marts_customers.sql">
+      <data key="d22">CONSUMES</data>
+    </edge>
+    <edge source="orders" target="sql_C__Users_ADMINI~1_AppData_Local_Temp_cartographer_x85cj1vb_models_marts_customers.sql">
+      <data key="d22">CONSUMES</data>
+    </edge>
+    <edge source="sql_C__Users_ADMINI~1_AppData_Local_Temp_cartographer_x85cj1vb_models_marts_customers.sql" target="customers">
+      <data key="d22">PRODUCES</data>
+    </edge>
+    <edge source="stg_locations" target="sql_C__Users_ADMINI~1_AppData_Local_Temp_cartographer_x85cj1vb_models_marts_locations.sql">
+      <data key="d22">CONSUMES</data>
+    </edge>
+    <edge source="sql_C__Users_ADMINI~1_AppData_Local_Temp_cartographer_x85cj1vb_models_marts_locations.sql" target="locations">
+      <data key="d22">PRODUCES</data>
+    </edge>
+    <edge source="sql_C__Users_ADMINI~1_AppData_Local_Temp_cartographer_x85cj1vb_models_marts_metricflow_time_spine.sql" target="metricflow_time_spine">
+      <data key="d22">PRODUCES</data>
+    </edge>
+    <edge source="stg_orders" target="sql_C__Users_ADMINI~1_AppData_Local_Temp_cartographer_x85cj1vb_models_marts_orders.sql">
+      <data key="d22">CONSUMES</data>
+    </edge>
+    <edge source="stg_orders" target="sql_C__Users_ADMINI~1_AppData_Local_Temp_cartographer_x85cj1vb_models_marts_order_items.sql">
+      <data key="d22">CONSUMES</data>
+    </edge>
+    <edge source="order_items" target="sql_C__Users_ADMINI~1_AppData_Local_Temp_cartographer_x85cj1vb_models_marts_orders.sql">
+      <data key="d22">CONSUMES</data>
+    </edge>
+    <edge source="sql_C__Users_ADMINI~1_AppData_Local_Temp_cartographer_x85cj1vb_models_marts_orders.sql" target="orders">
+      <data key="d22">PRODUCES</data>
+    </edge>
+    <edge source="stg_order_items" target="sql_C__Users_ADMINI~1_AppData_Local_Temp_cartographer_x85cj1vb_models_marts_order_items.sql">
+      <data key="d22">CONSUMES</data>
+    </edge>
+    <edge source="stg_products" target="sql_C__Users_ADMINI~1_AppData_Local_Temp_cartographer_x85cj1vb_models_marts_order_items.sql">
+      <data key="d22">CONSUMES</data>
+    </edge>
+    <edge source="stg_products" target="sql_C__Users_ADMINI~1_AppData_Local_Temp_cartographer_x85cj1vb_models_marts_products.sql">
+      <data key="d22">CONSUMES</data>
+    </edge>
+    <edge source="stg_supplies" target="sql_C__Users_ADMINI~1_AppData_Local_Temp_cartographer_x85cj1vb_models_marts_order_items.sql">
+      <data key="d22">CONSUMES</data>
+    </edge>
+    <edge source="stg_supplies" target="sql_C__Users_ADMINI~1_AppData_Local_Temp_cartographer_x85cj1vb_models_marts_supplies.sql">
+      <data key="d22">CONSUMES</data>
+    </edge>
+    <edge source="sql_C__Users_ADMINI~1_AppData_Local_Temp_cartographer_x85cj1vb_models_marts_order_items.sql" target="order_items">
+      <data key="d22">PRODUCES</data>
+    </edge>
+    <edge source="sql_C__Users_ADMINI~1_AppData_Local_Temp_cartographer_x85cj1vb_models_marts_products.sql" target="products">
+      <data key="d22">PRODUCES</data>
+    </edge>
+    <edge source="sql_C__Users_ADMINI~1_AppData_Local_Temp_cartographer_x85cj1vb_models_marts_supplies.sql" target="supplies">
+      <data key="d22">PRODUCES</data>
+    </edge>
+    <edge source="ecom.raw_customers" target="sql_C__Users_ADMINI~1_AppData_Local_Temp_cartographer_x85cj1vb_models_staging_stg_customers.sql">
+      <data key="d22">CONSUMES</data>
+    </edge>
+    <edge source="sql_C__Users_ADMINI~1_AppData_Local_Temp_cartographer_x85cj1vb_models_staging_stg_customers.sql" target="stg_customers">
+      <data key="d22">PRODUCES</data>
+    </edge>
+    <edge source="ecom.raw_stores" target="sql_C__Users_ADMINI~1_AppData_Local_Temp_cartographer_x85cj1vb_models_staging_stg_locations.sql">
+      <data key="d22">CONSUMES</data>
+    </edge>
+    <edge source="sql_C__Users_ADMINI~1_AppData_Local_Temp_cartographer_x85cj1vb_models_staging_stg_locations.sql" target="stg_locations">
+      <data key="d22">PRODUCES</data>
+    </edge>
+    <edge source="ecom.raw_orders" target="sql_C__Users_ADMINI~1_AppData_Local_Temp_cartographer_x85cj1vb_models_staging_stg_orders.sql">
+      <data key="d22">CONSUMES</data>
+    </edge>
+    <edge source="sql_C__Users_ADMINI~1_AppData_Local_Temp_cartographer_x85cj1vb_models_staging_stg_orders.sql" target="stg_orders">
+      <data key="d22">PRODUCES</data>
+    </edge>
+    <edge source="ecom.raw_items" target="sql_C__Users_ADMINI~1_AppData_Local_Temp_cartographer_x85cj1vb_models_staging_stg_order_items.sql">
+      <data key="d22">CONSUMES</data>
+    </edge>
+    <edge source="sql_C__Users_ADMINI~1_AppData_Local_Temp_cartographer_x85cj1vb_models_staging_stg_order_items.sql" target="stg_order_items">
+      <data key="d22">PRODUCES</data>
+    </edge>
+    <edge source="ecom.raw_products" target="sql_C__Users_ADMINI~1_AppData_Local_Temp_cartographer_x85cj1vb_models_staging_stg_products.sql">
+      <data key="d22">CONSUMES</data>
+    </edge>
+    <edge source="sql_C__Users_ADMINI~1_AppData_Local_Temp_cartographer_x85cj1vb_models_staging_stg_products.sql" target="stg_products">
+      <data key="d22">PRODUCES</data>
+    </edge>
+    <edge source="ecom.raw_supplies" target="sql_C__Users_ADMINI~1_AppData_Local_Temp_cartographer_x85cj1vb_models_staging_stg_supplies.sql">
+      <data key="d22">CONSUMES</data>
+    </edge>
+    <edge source="sql_C__Users_ADMINI~1_AppData_Local_Temp_cartographer_x85cj1vb_models_staging_stg_supplies.sql" target="stg_supplies">
+      <data key="d22">PRODUCES</data>
+    </edge>
+  </graph>
+</graphml>

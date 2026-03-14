@@ -29,7 +29,13 @@ build/
 .env.local
 
 # Test artifacts and temp directories
-# jaffle_shop_test/
+jaffle_shop_test/
+jaffle_shop_test2/
+jaffle_shop_test3/
+self_test/
+self_test_final/
+final_test/
+
 # jaffle_shop_artifacts/
 
 # OS files
@@ -38,3 +44,7 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Submission / grading (optional: remove to track these)
+INTERIM_SUBMISSION.md
+RUBRIC.md

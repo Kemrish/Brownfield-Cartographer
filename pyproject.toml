@@ -15,10 +15,14 @@ dependencies = [
     "gitpython>=3.1",
     "click>=8.0",
     "rich>=13.0",
+    "python-dotenv>=1.0",
 ]
 
 [project.scripts]
 cartographer = "src.cli:main"
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0", "pytest-cov>=4.0"]
 
 [build-system]
 requires = ["hatchling"]

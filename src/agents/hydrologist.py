@@ -7,7 +7,7 @@ from src.analyzers.tree_sitter_analyzer import TreeSitterAnalyzer
 from src.analyzers.sql_lineage import SQLLineageAnalyzer
 from src.analyzers.dag_config_parser import DAGConfigParser
 from src.graph.knowledge_graph import KnowledgeGraph
-from src.models.schemas import DatasetNode, TransformationNode, ConfigNode, EdgeType
+from src.models.schemas import DatasetNode, TransformationNode, ConfigNode, EdgeType, ColumnLineageEdge
 
 
 def _extract_python_data_refs(source: str, path: str) -> tuple[list[str], list[str]]:
@@ -54,7 +54,8 @@ class Hydrologist:
         self.tree_sitter = TreeSitterAnalyzer()
         self.graph = KnowledgeGraph()
         self.configs: list[ConfigNode] = []
-        self._stats = {"sql_files": 0, "python_files": 0, "yaml_files": 0, "dbt_refs_found": 0}
+        self.column_lineage: list[ColumnLineageEdge] = []
+        self._stats = {"sql_files": 0, "python_files": 0, "yaml_files": 0, "dbt_refs_found": 0, "column_lineage_edges": 0}
 
     def _add_sql_file(self, path: Path) -> None:
         try:
@@ -63,9 +64,11 @@ class Hydrologist:
             return
         path_posix = path.relative_to(self.repo_root).as_posix()
         model_name = path.stem  # dbt model name
-        nodes_ds, nodes_trans, edges = self.sql_analyzer.analyze_file(path, source, model_name_hint=model_name)
+        nodes_ds, nodes_trans, edges, col_lineage = self.sql_analyzer.analyze_file(path, source, model_name_hint=model_name)
 
         self._stats["sql_files"] += 1
+        self.column_lineage.extend(col_lineage)
+        self._stats["column_lineage_edges"] = len(self.column_lineage)
 
         for n in nodes_ds:
             self.graph.add_lineage_dataset(n)
@@ -207,5 +210,6 @@ class Hydrologist:
             configs=self.configs,
             critical_path=critical_path,
             metadata=metadata,
+            column_lineage=self.column_lineage,
         )
         return str(out_path)

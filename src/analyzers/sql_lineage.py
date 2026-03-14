@@ -7,7 +7,13 @@ from typing import Optional
 import sqlglot
 from sqlglot import exp
 
-from src.models.schemas import DatasetNode, TransformationNode, GraphEdge, EdgeType
+from src.models.schemas import (
+    DatasetNode,
+    TransformationNode,
+    GraphEdge,
+    EdgeType,
+    ColumnLineageEdge,
+)
 
 
 # Dialects to try (order matters for ambiguous syntax)
@@ -149,14 +155,95 @@ class SQLLineageAnalyzer:
         combined_sources = list(dict.fromkeys(sources + dbt_refs + dbt_sources_full))
         return combined_sources, list(dict.fromkeys(targets)), dbt_refs, dbt_sources_full
 
+    def extract_column_lineage(
+        self,
+        source: str,
+        path: str,
+        model_name_hint: Optional[str] = None,
+        source_tables: Optional[list[str]] = None,
+    ) -> list[ColumnLineageEdge]:
+        """
+        Extract column-level lineage: source_table.col -> target_table.col.
+        Uses SELECT list and aliases; best-effort for simple queries.
+        """
+        root = self.parse_sql(source, path)
+        if root is None or not isinstance(root, exp.Select):
+            return []
+
+        target_table = model_name_hint or "output"
+        trans_id = f"sql:{path}"
+        edges: list[ColumnLineageEdge] = []
+
+        # Map table alias -> table name for column resolution
+        table_alias_map: dict[str, str] = {}
+        for table in root.find_all(exp.Table):
+            name = table.sql(dialect=self.dialect)
+            if name and not name.startswith("__dbt_"):
+                alias = table.alias
+                key = alias.sql(dialect=self.dialect) if alias else name
+                if key:
+                    table_alias_map[key] = name.split(".")[-1]
+
+        # SELECT expressions: output columns
+        for select in root.find_all(exp.Select):
+            for expr in select.expressions:
+                out_col = None
+                if isinstance(expr, exp.Alias):
+                    out_col = expr.alias
+                    expr = expr.this
+                elif isinstance(expr, exp.Column):
+                    out_col = expr.sql(dialect=self.dialect).split(".")[-1]
+
+                if not out_col:
+                    continue
+
+                # Resolve source: Column references
+                if isinstance(expr, exp.Column):
+                    col_name = expr.sql(dialect=self.dialect)
+                    parts = col_name.split(".")
+                    if len(parts) >= 2:
+                        src_table = parts[0] if parts[0] in table_alias_map else table_alias_map.get(parts[0], parts[0])
+                        src_col = parts[-1]
+                    else:
+                        src_table = (source_tables or [None])[0] if source_tables else "unknown"
+                        src_col = parts[-1] if parts else out_col
+                    if src_table and src_col:
+                        edges.append(
+                            ColumnLineageEdge(
+                                source_dataset=src_table,
+                                source_column=src_col,
+                                target_dataset=target_table,
+                                target_column=out_col,
+                                transformation_id=trans_id,
+                                source_file=path,
+                            )
+                        )
+                else:
+                    # Other expressions (e.g. aggregations): collect any Column references
+                    for arg in expr.find_all(exp.Column):
+                        src_col = arg.sql(dialect=self.dialect).split(".")[-1]
+                        src_table = (source_tables[0] if source_tables else "unknown")
+                        edges.append(
+                            ColumnLineageEdge(
+                                source_dataset=src_table,
+                                source_column=src_col,
+                                target_dataset=target_table,
+                                target_column=out_col,
+                                transformation_id=trans_id,
+                                source_file=path,
+                            )
+                        )
+
+        return edges
+
     def analyze_file(
         self,
         path: str | Path,
         source: str,
         model_name_hint: Optional[str] = None,
-    ) -> tuple[list[DatasetNode], list[TransformationNode], list[GraphEdge]]:
+    ) -> tuple[list[DatasetNode], list[TransformationNode], list[GraphEdge], list[ColumnLineageEdge]]:
         """
-        Analyze one SQL file and return datasets, one transformation node, and edges.
+        Analyze one SQL file and return datasets, one transformation node, edges, and column lineage.
         model_name_hint: e.g. dbt model name (filename without .sql) to use as output.
         """
         path_str = str(Path(path).as_posix())
@@ -164,7 +251,7 @@ class SQLLineageAnalyzer:
 
         # Skip macros from lineage (they're not transformations)
         if is_macro:
-            return [], [], []
+            return [], [], [], []
 
         sources, targets, dbt_refs, dbt_sources_full = self.extract_dependencies(source, path_str)
 
@@ -176,6 +263,9 @@ class SQLLineageAnalyzer:
         nodes_ds: list[DatasetNode] = []
         nodes_trans: list[TransformationNode] = []
         edges: list[GraphEdge] = []
+        column_lineage: list[ColumnLineageEdge] = self.extract_column_lineage(
+            source, path_str, model_name_hint=model_name_hint, source_tables=sources
+        )
 
         # Create dataset nodes for sources
         for s in sources:
@@ -221,4 +311,4 @@ class SQLLineageAnalyzer:
                 is_macro=is_macro,
             )
         )
-        return nodes_ds, nodes_trans, edges
+        return nodes_ds, nodes_trans, edges, column_lineage

@@ -139,6 +139,36 @@ class GraphEdge(BaseModel):
 # --- Graph container types (for serialization) ---
 
 
+class ColumnLineageEdge(BaseModel):
+    """Column-level lineage: source column -> target column via transformation."""
+
+    source_dataset: str
+    source_column: str
+    target_dataset: str
+    target_column: str
+    transformation_id: str
+    source_file: Optional[str] = None
+
+
+class NetworkMetrics(BaseModel):
+    """Network analysis metrics for module and lineage graphs."""
+
+    # Module graph
+    module_node_count: int = 0
+    module_edge_count: int = 0
+    module_pagerank_top: list[tuple[str, float]] = Field(default_factory=list)
+    module_betweenness_top: list[tuple[str, float]] = Field(default_factory=list)
+    module_communities: list[list[str]] = Field(default_factory=list)  # Louvain-style clusters
+    module_degree_stats: dict[str, float] = Field(default_factory=dict)  # min, max, mean in/out degree
+
+    # Lineage graph
+    lineage_node_count: int = 0
+    lineage_edge_count: int = 0
+    lineage_betweenness_top: list[tuple[str, float]] = Field(default_factory=list)
+    lineage_communities: list[list[str]] = Field(default_factory=list)
+    lineage_degree_stats: dict[str, float] = Field(default_factory=dict)
+
+
 class ModuleGraph(BaseModel):
     """Serializable module import graph."""
 
@@ -151,6 +181,7 @@ class ModuleGraph(BaseModel):
     entry_points: list[str] = Field(default_factory=list)
     dead_code_candidates: list[str] = Field(default_factory=list)
     hub_modules: list[str] = Field(default_factory=list)  # top PageRank modules
+    network_metrics: Optional[NetworkMetrics] = None
 
 
 class LineageGraph(BaseModel):
@@ -164,3 +195,5 @@ class LineageGraph(BaseModel):
     sources: list[str] = Field(default_factory=list)  # in-degree 0 (data sources)
     sinks: list[str] = Field(default_factory=list)    # out-degree 0 (final outputs)
     critical_path: list[str] = Field(default_factory=list)  # longest path in DAG
+    column_lineage: list[ColumnLineageEdge] = Field(default_factory=list)
+    network_metrics: Optional[NetworkMetrics] = None
