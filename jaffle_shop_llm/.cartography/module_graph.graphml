@@ -1,7 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
 <graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
-  <key id="d29" for="node" attr.name="cyclomatic_complexity" attr.type="long" />
-  <key id="d28" for="node" attr.name="label" attr.type="string" />
+  <key id="d31" for="node" attr.name="cyclomatic_complexity" attr.type="long" />
+  <key id="d30" for="node" attr.name="label" attr.type="string" />
+  <key id="d29" for="node" attr.name="doc_drift_detected" attr.type="boolean" />
+  <key id="d28" for="node" attr.name="docstring_snippet" attr.type="string" />
   <key id="d27" for="node" attr.name="yaml_list_keys" attr.type="string" />
   <key id="d26" for="node" attr.name="yaml_depth" attr.type="long" />
   <key id="d25" for="node" attr.name="yaml_key_paths" attr.type="string" />
@@ -43,7 +45,7 @@
       <data key="d8">0</data>
       <data key="d9">False</data>
       <data key="d10">False</data>
-      <data key="d11">2026-03-14T09:35:53.490881</data>
+      <data key="d11">2026-03-14T11:05:48.835286</data>
       <data key="d12">[]</data>
       <data key="d13">[]</data>
       <data key="d14">[]</data>
@@ -60,7 +62,9 @@
       <data key="d25">['config-version', 'name', 'version', 'require-dbt-version', 'dbt-cloud', 'dbt-cloud.project-id', 'profile', 'model-paths', 'analysis-paths', 'test-paths', 'seed-paths', 'macro-paths', 'snapshot-paths', 'target-path', 'clean-targets', 'vars', 'vars.dbt_date:time_zone', 'seeds', 'seeds.jaffle_shop', 'seeds.jaffle_shop.+schema', 'seeds.jaffle_shop.jaffle-data', 'seeds.jaffle_shop.jaffle-data.+enabled', 'models', 'models.jaffle_shop', 'models.jaffle_shop.staging', 'models.jaffle_shop.staging.+mater</data>
       <data key="d26">3</data>
       <data key="d27">['model-paths', 'analysis-paths', 'test-paths', 'seed-paths', 'macro-paths', 'snapshot-paths', 'clean-targets']</data>
-      <data key="d28">dbt_project.yml</data>
+      <data key="d28" />
+      <data key="d29">False</data>
+      <data key="d30">dbt_project.yml</data>
     </node>
     <node id="package-lock.yml">
       <data key="d0">package-lock.yml</data>
@@ -74,7 +78,7 @@
       <data key="d8">0</data>
       <data key="d9">False</data>
       <data key="d10">False</data>
-      <data key="d11">2026-03-14T09:35:53.500853</data>
+      <data key="d11">2026-03-14T11:05:48.879660</data>
       <data key="d12">[]</data>
       <data key="d13">[]</data>
       <data key="d14">[]</data>
@@ -91,7 +95,9 @@
       <data key="d25">['packages', 'packages.package', 'packages.version', 'packages.package', 'packages.version', 'packages.git', 'packages.revision', 'sha1_hash']</data>
       <data key="d26">1</data>
       <data key="d27">['packages']</data>
-      <data key="d28">package-lock.yml</data>
+      <data key="d28" />
+      <data key="d29">False</data>
+      <data key="d30">package-lock.yml</data>
     </node>
     <node id="packages.yml">
       <data key="d0">packages.yml</data>
@@ -105,7 +111,7 @@
       <data key="d8">0</data>
       <data key="d9">False</data>
       <data key="d10">False</data>
-      <data key="d11">2026-03-14T09:35:53.500853</data>
+      <data key="d11">2026-03-14T11:05:48.879660</data>
       <data key="d12">[]</data>
       <data key="d13">[]</data>
       <data key="d14">[]</data>
@@ -122,7 +128,9 @@
       <data key="d25">['packages', 'packages.package', 'packages.version', 'packages.package', 'packages.version', 'packages.git', 'packages.revision']</data>
       <data key="d26">1</data>
       <data key="d27">['packages']</data>
-      <data key="d28">packages.yml</data>
+      <data key="d28" />
+      <data key="d29">False</data>
+      <data key="d30">packages.yml</data>
     </node>
     <node id="Taskfile.yml">
       <data key="d0">Taskfile.yml</data>
@@ -136,7 +144,7 @@
       <data key="d8">0</data>
       <data key="d9">False</data>
       <data key="d10">False</data>
-      <data key="d11">2026-03-14T09:35:53.489937</data>
+      <data key="d11">2026-03-14T11:05:48.835286</data>
       <data key="d12">[]</data>
       <data key="d13">[]</data>
       <data key="d14">[]</data>
@@ -153,7 +161,9 @@
       <data key="d25">['version', 'silent', 'vars', 'vars.YEARS', 'vars.DB', 'tasks', 'tasks.venv', 'tasks.venv.cmds', 'tasks.install', 'tasks.install.cmds', 'tasks.gen', 'tasks.gen.cmds', 'tasks.seed', 'tasks.seed.cmds', 'tasks.clean', 'tasks.clean.cmds', 'tasks.load', 'tasks.load.cmds', 'tasks.load.cmds.task', 'tasks.load.cmds.task', 'tasks.load.cmds.task', 'tasks.load.cmds.task', 'tasks.load.cmds.task']</data>
       <data key="d26">3</data>
       <data key="d27">['cmds']</data>
-      <data key="d28">Taskfile.yml</data>
+      <data key="d28" />
+      <data key="d29">False</data>
+      <data key="d30">Taskfile.yml</data>
     </node>
     <node id="macros/cents_to_dollars.sql">
       <data key="d0">macros/cents_to_dollars.sql</data>
@@ -161,13 +171,13 @@
       <data key="d2" />
       <data key="d3" />
       <data key="d4" />
-      <data key="d29">1</data>
+      <data key="d31">1</data>
       <data key="d6">16</data>
       <data key="d7">0.0</data>
       <data key="d8">0</data>
       <data key="d9">False</data>
       <data key="d10">False</data>
-      <data key="d11">2026-03-14T09:35:53.490881</data>
+      <data key="d11">2026-03-14T11:05:48.835286</data>
       <data key="d12">[]</data>
       <data key="d13">[]</data>
       <data key="d14">[]</data>
@@ -184,7 +194,9 @@
       <data key="d25">[]</data>
       <data key="d26">0</data>
       <data key="d27">[]</data>
-      <data key="d28">macros/cents_to_dollars.sql</data>
+      <data key="d28" />
+      <data key="d29">False</data>
+      <data key="d30">macros/cents_to_dollars.sql</data>
     </node>
     <node id="macros/generate_schema_name.sql">
       <data key="d0">macros/generate_schema_name.sql</data>
@@ -192,13 +204,13 @@
       <data key="d2" />
       <data key="d3" />
       <data key="d4" />
-      <data key="d29">1</data>
+      <data key="d31">1</data>
       <data key="d6">16</data>
       <data key="d7">0.0</data>
       <data key="d8">0</data>
       <data key="d9">False</data>
       <data key="d10">False</data>
-      <data key="d11">2026-03-14T09:35:53.491889</data>
+      <data key="d11">2026-03-14T11:05:48.835286</data>
       <data key="d12">[]</data>
       <data key="d13">[]</data>
       <data key="d14">[]</data>
@@ -215,7 +227,9 @@
       <data key="d25">[]</data>
       <data key="d26">0</data>
       <data key="d27">[]</data>
-      <data key="d28">macros/generate_schema_name.sql</data>
+      <data key="d28" />
+      <data key="d29">False</data>
+      <data key="d30">macros/generate_schema_name.sql</data>
     </node>
     <node id="models/marts/customers.sql">
       <data key="d0">models/marts/customers.sql</data>
@@ -223,13 +237,13 @@
       <data key="d2" />
       <data key="d3" />
       <data key="d4" />
-      <data key="d29">3</data>
+      <data key="d31">3</data>
       <data key="d6">38</data>
       <data key="d7">0.0</data>
       <data key="d8">0</data>
       <data key="d9">False</data>
       <data key="d10">False</data>
-      <data key="d11">2026-03-14T09:35:53.491889</data>
+      <data key="d11">2026-03-14T11:05:48.838112</data>
       <data key="d12">[]</data>
       <data key="d13">[]</data>
       <data key="d14">[]</data>
@@ -246,7 +260,9 @@
       <data key="d25">[]</data>
       <data key="d26">0</data>
       <data key="d27">[]</data>
-      <data key="d28">models/marts/customers.sql</data>
+      <data key="d28" />
+      <data key="d29">False</data>
+      <data key="d30">models/marts/customers.sql</data>
     </node>
     <node id="models/marts/customers.yml">
       <data key="d0">models/marts/customers.yml</data>
@@ -260,7 +276,7 @@
       <data key="d8">0</data>
       <data key="d9">False</data>
       <data key="d10">False</data>
-      <data key="d11">2026-03-14T09:35:53.491889</data>
+      <data key="d11">2026-03-14T11:05:48.838112</data>
       <data key="d12">[]</data>
       <data key="d13">[]</data>
       <data key="d14">[]</data>
@@ -277,7 +293,9 @@
       <data key="d25">['models', 'models.name', 'models.description', 'models.data_tests', 'models.data_tests.dbt_utils.expression_is_true', 'models.data_tests.dbt_utils.expression_is_true.expression', 'models.columns', 'models.columns.name', 'models.columns.description', 'models.columns.data_tests', 'models.columns.name', 'models.columns.description', 'models.columns.name', 'models.columns.description', 'models.columns.name', 'models.columns.description', 'models.columns.name', 'models.columns.description', 'models.</data>
       <data key="d26">4</data>
       <data key="d27">['models', 'data_tests', 'columns', 'values', 'semantic_models', 'entities', 'dimensions', 'measures', 'metrics', 'saved_queries', 'group_by', 'exports']</data>
-      <data key="d28">models/marts/customers.yml</data>
+      <data key="d28" />
+      <data key="d29">False</data>
+      <data key="d30">models/marts/customers.yml</data>
     </node>
     <node id="models/marts/locations.sql">
       <data key="d0">models/marts/locations.sql</data>
@@ -285,13 +303,13 @@
       <data key="d2" />
       <data key="d3" />
       <data key="d4" />
-      <data key="d29">1</data>
+      <data key="d31">1</data>
       <data key="d6">5</data>
       <data key="d7">0.0</data>
       <data key="d8">0</data>
       <data key="d9">False</data>
       <data key="d10">False</data>
-      <data key="d11">2026-03-14T09:35:53.491889</data>
+      <data key="d11">2026-03-14T11:05:48.838112</data>
       <data key="d12">[]</data>
       <data key="d13">[]</data>
       <data key="d14">[]</data>
@@ -308,7 +326,9 @@
       <data key="d25">[]</data>
       <data key="d26">0</data>
       <data key="d27">[]</data>
-      <data key="d28">models/marts/locations.sql</data>
+      <data key="d28" />
+      <data key="d29">False</data>
+      <data key="d30">models/marts/locations.sql</data>
     </node>
     <node id="models/marts/locations.yml">
       <data key="d0">models/marts/locations.yml</data>
@@ -322,7 +342,7 @@
       <data key="d8">0</data>
       <data key="d9">False</data>
       <data key="d10">False</data>
-      <data key="d11">2026-03-14T09:35:53.491889</data>
+      <data key="d11">2026-03-14T11:05:48.838112</data>
       <data key="d12">[]</data>
       <data key="d13">[]</data>
       <data key="d14">[]</data>
@@ -339,7 +359,9 @@
       <data key="d25">['semantic_models', 'semantic_models.name', 'semantic_models.description', 'semantic_models.model', 'semantic_models.defaults', 'semantic_models.defaults.agg_time_dimension', 'semantic_models.entities', 'semantic_models.entities.name', 'semantic_models.entities.type', 'semantic_models.entities.expr', 'semantic_models.dimensions', 'semantic_models.dimensions.name', 'semantic_models.dimensions.type', 'semantic_models.dimensions.name', 'semantic_models.dimensions.expr', 'semantic_models.dimensions.</data>
       <data key="d26">3</data>
       <data key="d27">['semantic_models', 'entities', 'dimensions', 'measures']</data>
-      <data key="d28">models/marts/locations.yml</data>
+      <data key="d28" />
+      <data key="d29">False</data>
+      <data key="d30">models/marts/locations.yml</data>
     </node>
     <node id="models/marts/metricflow_time_spine.sql">
       <data key="d0">models/marts/metricflow_time_spine.sql</data>
@@ -347,13 +369,13 @@
       <data key="d2" />
       <data key="d3" />
       <data key="d4" />
-      <data key="d29">1</data>
+      <data key="d31">1</data>
       <data key="d6">9</data>
       <data key="d7">0.222</data>
       <data key="d8">0</data>
       <data key="d9">False</data>
       <data key="d10">False</data>
-      <data key="d11">2026-03-14T09:35:53.491889</data>
+      <data key="d11">2026-03-14T11:05:48.838112</data>
       <data key="d12">[]</data>
       <data key="d13">[]</data>
       <data key="d14">[]</data>
@@ -370,7 +392,9 @@
       <data key="d25">[]</data>
       <data key="d26">0</data>
       <data key="d27">[]</data>
-      <data key="d28">models/marts/metricflow_time_spine.sql</data>
+      <data key="d28" />
+      <data key="d29">False</data>
+      <data key="d30">models/marts/metricflow_time_spine.sql</data>
     </node>
     <node id="models/marts/orders.sql">
       <data key="d0">models/marts/orders.sql</data>
@@ -378,13 +402,13 @@
       <data key="d2" />
       <data key="d3" />
       <data key="d4" />
-      <data key="d29">5</data>
+      <data key="d31">5</data>
       <data key="d6">53</data>
       <data key="d7">0.0</data>
       <data key="d8">0</data>
       <data key="d9">False</data>
       <data key="d10">False</data>
-      <data key="d11">2026-03-14T09:35:53.491889</data>
+      <data key="d11">2026-03-14T11:05:48.838112</data>
       <data key="d12">[]</data>
       <data key="d13">[]</data>
       <data key="d14">[]</data>
@@ -401,7 +425,9 @@
       <data key="d25">[]</data>
       <data key="d26">0</data>
       <data key="d27">[]</data>
-      <data key="d28">models/marts/orders.sql</data>
+      <data key="d28" />
+      <data key="d29">False</data>
+      <data key="d30">models/marts/orders.sql</data>
     </node>
     <node id="models/marts/orders.yml">
       <data key="d0">models/marts/orders.yml</data>
@@ -415,7 +441,7 @@
       <data key="d8">0</data>
       <data key="d9">False</data>
       <data key="d10">False</data>
-      <data key="d11">2026-03-14T09:35:53.491889</data>
+      <data key="d11">2026-03-14T11:05:48.840721</data>
       <data key="d12">[]</data>
       <data key="d13">[]</data>
       <data key="d14">[]</data>
@@ -432,7 +458,9 @@
       <data key="d25">['models', 'models.name', 'models.description', 'models.data_tests', 'models.data_tests.dbt_utils.expression_is_true', 'models.data_tests.dbt_utils.expression_is_true.expression', 'models.data_tests.dbt_utils.expression_is_true', 'models.data_tests.dbt_utils.expression_is_true.expression', 'models.columns', 'models.columns.name', 'models.columns.description', 'models.columns.data_tests', 'models.columns.name', 'models.columns.description', 'models.columns.data_tests', 'models.columns.data_tests.</data>
       <data key="d26">4</data>
       <data key="d27">['models', 'data_tests', 'columns', 'unit_tests', 'given', 'rows', 'semantic_models', 'entities', 'dimensions', 'measures', 'metrics', 'saved_queries', 'group_by', 'exports']</data>
-      <data key="d28">models/marts/orders.yml</data>
+      <data key="d28" />
+      <data key="d29">False</data>
+      <data key="d30">models/marts/orders.yml</data>
     </node>
     <node id="models/marts/order_items.sql">
       <data key="d0">models/marts/order_items.sql</data>
@@ -440,13 +468,13 @@
       <data key="d2" />
       <data key="d3" />
       <data key="d4" />
-      <data key="d29">1</data>
+      <data key="d31">1</data>
       <data key="d6">36</data>
       <data key="d7">0.0</data>
       <data key="d8">0</data>
       <data key="d9">False</data>
       <data key="d10">False</data>
-      <data key="d11">2026-03-14T09:35:53.491889</data>
+      <data key="d11">2026-03-14T11:05:48.838112</data>
       <data key="d12">[]</data>
       <data key="d13">[]</data>
       <data key="d14">[]</data>
@@ -463,7 +491,9 @@
       <data key="d25">[]</data>
       <data key="d26">0</data>
       <data key="d27">[]</data>
-      <data key="d28">models/marts/order_items.sql</data>
+      <data key="d28" />
+      <data key="d29">False</data>
+      <data key="d30">models/marts/order_items.sql</data>
     </node>
     <node id="models/marts/order_items.yml">
       <data key="d0">models/marts/order_items.yml</data>
@@ -477,7 +507,7 @@
       <data key="d8">0</data>
       <data key="d9">False</data>
       <data key="d10">False</data>
-      <data key="d11">2026-03-14T09:35:53.491889</data>
+      <data key="d11">2026-03-14T11:05:48.838112</data>
       <data key="d12">[]</data>
       <data key="d13">[]</data>
       <data key="d14">[]</data>
@@ -494,7 +524,9 @@
       <data key="d25">['models', 'models.name', 'models.columns', 'models.columns.name', 'models.columns.data_tests', 'models.columns.name', 'models.columns.data_tests', 'models.columns.data_tests.relationships', 'models.columns.data_tests.relationships.to', 'models.columns.data_tests.relationships.field', 'unit_tests', 'unit_tests.name', 'unit_tests.description', 'unit_tests.model', 'unit_tests.given', 'unit_tests.given.input', 'unit_tests.given.rows', 'unit_tests.given.rows.product_id', 'unit_tests.given.rows.suppl</data>
       <data key="d26">4</data>
       <data key="d27">['models', 'columns', 'data_tests', 'unit_tests', 'given', 'rows', 'semantic_models', 'entities', 'dimensions', 'measures', 'metrics', 'saved_queries', 'group_by', 'exports']</data>
-      <data key="d28">models/marts/order_items.yml</data>
+      <data key="d28" />
+      <data key="d29">False</data>
+      <data key="d30">models/marts/order_items.yml</data>
     </node>
     <node id="models/marts/products.sql">
       <data key="d0">models/marts/products.sql</data>
@@ -502,13 +534,13 @@
       <data key="d2" />
       <data key="d3" />
       <data key="d4" />
-      <data key="d29">1</data>
+      <data key="d31">1</data>
       <data key="d6">5</data>
       <data key="d7">0.0</data>
       <data key="d8">0</data>
       <data key="d9">False</data>
       <data key="d10">False</data>
-      <data key="d11">2026-03-14T09:35:53.491889</data>
+      <data key="d11">2026-03-14T11:05:48.840721</data>
       <data key="d12">[]</data>
       <data key="d13">[]</data>
       <data key="d14">[]</data>
@@ -525,7 +557,9 @@
       <data key="d25">[]</data>
       <data key="d26">0</data>
       <data key="d27">[]</data>
-      <data key="d28">models/marts/products.sql</data>
+      <data key="d28" />
+      <data key="d29">False</data>
+      <data key="d30">models/marts/products.sql</data>
     </node>
     <node id="models/marts/products.yml">
       <data key="d0">models/marts/products.yml</data>
@@ -539,7 +573,7 @@
       <data key="d8">0</data>
       <data key="d9">False</data>
       <data key="d10">False</data>
-      <data key="d11">2026-03-14T09:35:53.491889</data>
+      <data key="d11">2026-03-14T11:05:48.840721</data>
       <data key="d12">[]</data>
       <data key="d13">[]</data>
       <data key="d14">[]</data>
@@ -556,7 +590,9 @@
       <data key="d25">['semantic_models', 'semantic_models.name', 'semantic_models.description', 'semantic_models.model', 'semantic_models.entities', 'semantic_models.entities.name', 'semantic_models.entities.type', 'semantic_models.entities.expr', 'semantic_models.dimensions', 'semantic_models.dimensions.name', 'semantic_models.dimensions.type', 'semantic_models.dimensions.name', 'semantic_models.dimensions.type', 'semantic_models.dimensions.name', 'semantic_models.dimensions.type', 'semantic_models.dimensions.name'</data>
       <data key="d26">2</data>
       <data key="d27">['semantic_models', 'entities', 'dimensions']</data>
-      <data key="d28">models/marts/products.yml</data>
+      <data key="d28" />
+      <data key="d29">False</data>
+      <data key="d30">models/marts/products.yml</data>
     </node>
     <node id="models/marts/supplies.sql">
       <data key="d0">models/marts/supplies.sql</data>
@@ -564,13 +600,13 @@
       <data key="d2" />
       <data key="d3" />
       <data key="d4" />
-      <data key="d29">1</data>
+      <data key="d31">1</data>
       <data key="d6">5</data>
       <data key="d7">0.0</data>
       <data key="d8">0</data>
       <data key="d9">False</data>
       <data key="d10">False</data>
-      <data key="d11">2026-03-14T09:35:53.491889</data>
+      <data key="d11">2026-03-14T11:05:48.840721</data>
       <data key="d12">[]</data>
       <data key="d13">[]</data>
       <data key="d14">[]</data>
@@ -587,7 +623,9 @@
       <data key="d25">[]</data>
       <data key="d26">0</data>
       <data key="d27">[]</data>
-      <data key="d28">models/marts/supplies.sql</data>
+      <data key="d28" />
+      <data key="d29">False</data>
+      <data key="d30">models/marts/supplies.sql</data>
     </node>
     <node id="models/marts/supplies.yml">
       <data key="d0">models/marts/supplies.yml</data>
@@ -601,7 +639,7 @@
       <data key="d8">0</data>
       <data key="d9">False</data>
       <data key="d10">False</data>
-      <data key="d11">2026-03-14T09:35:53.491889</data>
+      <data key="d11">2026-03-14T11:05:48.840721</data>
       <data key="d12">[]</data>
       <data key="d13">[]</data>
       <data key="d14">[]</data>
@@ -618,7 +656,9 @@
       <data key="d25">['semantic_models', 'semantic_models.name', 'semantic_models.description', 'semantic_models.model', 'semantic_models.entities', 'semantic_models.entities.name', 'semantic_models.entities.type', 'semantic_models.entities.expr', 'semantic_models.dimensions', 'semantic_models.dimensions.name', 'semantic_models.dimensions.type', 'semantic_models.dimensions.name', 'semantic_models.dimensions.type', 'semantic_models.dimensions.name', 'semantic_models.dimensions.type', 'semantic_models.dimensions.name'</data>
       <data key="d26">2</data>
       <data key="d27">['semantic_models', 'entities', 'dimensions']</data>
-      <data key="d28">models/marts/supplies.yml</data>
+      <data key="d28" />
+      <data key="d29">False</data>
+      <data key="d30">models/marts/supplies.yml</data>
     </node>
     <node id="models/staging/stg_customers.sql">
       <data key="d0">models/staging/stg_customers.sql</data>
@@ -626,13 +666,13 @@
       <data key="d2" />
       <data key="d3" />
       <data key="d4" />
-      <data key="d29">1</data>
+      <data key="d31">1</data>
       <data key="d6">11</data>
       <data key="d7">0.182</data>
       <data key="d8">0</data>
       <data key="d9">False</data>
       <data key="d10">False</data>
-      <data key="d11">2026-03-14T09:35:53.491889</data>
+      <data key="d11">2026-03-14T11:05:48.879660</data>
       <data key="d12">[]</data>
       <data key="d13">[]</data>
       <data key="d14">[]</data>
@@ -649,7 +689,9 @@
       <data key="d25">[]</data>
       <data key="d26">0</data>
       <data key="d27">[]</data>
-      <data key="d28">models/staging/stg_customers.sql</data>
+      <data key="d28" />
+      <data key="d29">False</data>
+      <data key="d30">models/staging/stg_customers.sql</data>
     </node>
     <node id="models/staging/stg_customers.yml">
       <data key="d0">models/staging/stg_customers.yml</data>
@@ -663,7 +705,7 @@
       <data key="d8">0</data>
       <data key="d9">False</data>
       <data key="d10">False</data>
-      <data key="d11">2026-03-14T09:35:53.491889</data>
+      <data key="d11">2026-03-14T11:05:48.879660</data>
       <data key="d12">[]</data>
       <data key="d13">[]</data>
       <data key="d14">[]</data>
@@ -680,7 +722,9 @@
       <data key="d25">['models', 'models.name', 'models.description', 'models.columns', 'models.columns.name', 'models.columns.description', 'models.columns.data_tests']</data>
       <data key="d26">2</data>
       <data key="d27">['models', 'columns', 'data_tests']</data>
-      <data key="d28">models/staging/stg_customers.yml</data>
+      <data key="d28" />
+      <data key="d29">False</data>
+      <data key="d30">models/staging/stg_customers.yml</data>
     </node>
     <node id="models/staging/stg_locations.sql">
       <data key="d0">models/staging/stg_locations.sql</data>
@@ -688,13 +732,13 @@
       <data key="d2" />
       <data key="d3" />
       <data key="d4" />
-      <data key="d29">1</data>
+      <data key="d31">1</data>
       <data key="d6">13</data>
       <data key="d7">0.308</data>
       <data key="d8">0</data>
       <data key="d9">False</data>
       <data key="d10">False</data>
-      <data key="d11">2026-03-14T09:35:53.491889</data>
+      <data key="d11">2026-03-14T11:05:48.879660</data>
       <data key="d12">[]</data>
       <data key="d13">[]</data>
       <data key="d14">[]</data>
@@ -711,7 +755,9 @@
       <data key="d25">[]</data>
       <data key="d26">0</data>
       <data key="d27">[]</data>
-      <data key="d28">models/staging/stg_locations.sql</data>
+      <data key="d28" />
+      <data key="d29">False</data>
+      <data key="d30">models/staging/stg_locations.sql</data>
     </node>
     <node id="models/staging/stg_locations.yml">
       <data key="d0">models/staging/stg_locations.yml</data>
@@ -725,7 +771,7 @@
       <data key="d8">0</data>
       <data key="d9">False</data>
       <data key="d10">False</data>
-      <data key="d11">2026-03-14T09:35:53.491889</data>
+      <data key="d11">2026-03-14T11:05:48.879660</data>
       <data key="d12">[]</data>
       <data key="d13">[]</data>
       <data key="d14">[]</data>
@@ -742,7 +788,9 @@
       <data key="d25">['models', 'models.name', 'models.description', 'models.columns', 'models.columns.name', 'models.columns.description', 'models.columns.data_tests', 'unit_tests', 'unit_tests.name', 'unit_tests.description', 'unit_tests.model', 'unit_tests.given', 'unit_tests.given.input', 'unit_tests.given.rows', 'unit_tests.given.rows.id', 'unit_tests.given.rows.name', 'unit_tests.given.rows.tax_rate', 'unit_tests.given.rows.opened_at', 'unit_tests.given.rows.id', 'unit_tests.given.rows.name', 'unit_tests.given</data>
       <data key="d26">3</data>
       <data key="d27">['models', 'columns', 'data_tests', 'unit_tests', 'given', 'rows']</data>
-      <data key="d28">models/staging/stg_locations.yml</data>
+      <data key="d28" />
+      <data key="d29">False</data>
+      <data key="d30">models/staging/stg_locations.yml</data>
     </node>
     <node id="models/staging/stg_orders.sql">
       <data key="d0">models/staging/stg_orders.sql</data>
@@ -750,13 +798,13 @@
       <data key="d2" />
       <data key="d3" />
       <data key="d4" />
-      <data key="d29">1</data>
+      <data key="d31">1</data>
       <data key="d6">19</data>
       <data key="d7">0.158</data>
       <data key="d8">0</data>
       <data key="d9">False</data>
       <data key="d10">False</data>
-      <data key="d11">2026-03-14T09:35:53.491889</data>
+      <data key="d11">2026-03-14T11:05:48.879660</data>
       <data key="d12">[]</data>
       <data key="d13">[]</data>
       <data key="d14">[]</data>
@@ -773,7 +821,9 @@
       <data key="d25">[]</data>
       <data key="d26">0</data>
       <data key="d27">[]</data>
-      <data key="d28">models/staging/stg_orders.sql</data>
+      <data key="d28" />
+      <data key="d29">False</data>
+      <data key="d30">models/staging/stg_orders.sql</data>
     </node>
     <node id="models/staging/stg_orders.yml">
       <data key="d0">models/staging/stg_orders.yml</data>
@@ -787,7 +837,7 @@
       <data key="d8">0</data>
       <data key="d9">False</data>
       <data key="d10">False</data>
-      <data key="d11">2026-03-14T09:35:53.491889</data>
+      <data key="d11">2026-03-14T11:05:48.879660</data>
       <data key="d12">[]</data>
       <data key="d13">[]</data>
       <data key="d14">[]</data>
@@ -804,7 +854,9 @@
       <data key="d25">['models', 'models.name', 'models.description', 'models.data_tests', 'models.data_tests.dbt_utils.expression_is_true', 'models.data_tests.dbt_utils.expression_is_true.expression', 'models.columns', 'models.columns.name', 'models.columns.description', 'models.columns.data_tests']</data>
       <data key="d26">3</data>
       <data key="d27">['models', 'data_tests', 'columns']</data>
-      <data key="d28">models/staging/stg_orders.yml</data>
+      <data key="d28" />
+      <data key="d29">False</data>
+      <data key="d30">models/staging/stg_orders.yml</data>
     </node>
     <node id="models/staging/stg_order_items.sql">
       <data key="d0">models/staging/stg_order_items.sql</data>
@@ -812,13 +864,13 @@
       <data key="d2" />
       <data key="d3" />
       <data key="d4" />
-      <data key="d29">1</data>
+      <data key="d31">1</data>
       <data key="d6">12</data>
       <data key="d7">0.083</data>
       <data key="d8">0</data>
       <data key="d9">False</data>
       <data key="d10">False</data>
-      <data key="d11">2026-03-14T09:35:53.491889</data>
+      <data key="d11">2026-03-14T11:05:48.879660</data>
       <data key="d12">[]</data>
       <data key="d13">[]</data>
       <data key="d14">[]</data>
@@ -835,7 +887,9 @@
       <data key="d25">[]</data>
       <data key="d26">0</data>
       <data key="d27">[]</data>
-      <data key="d28">models/staging/stg_order_items.sql</data>
+      <data key="d28" />
+      <data key="d29">False</data>
+      <data key="d30">models/staging/stg_order_items.sql</data>
     </node>
     <node id="models/staging/stg_order_items.yml">
       <data key="d0">models/staging/stg_order_items.yml</data>
@@ -849,7 +903,7 @@
       <data key="d8">0</data>
       <data key="d9">False</data>
       <data key="d10">False</data>
-      <data key="d11">2026-03-14T09:35:53.491889</data>
+      <data key="d11">2026-03-14T11:05:48.879660</data>
       <data key="d12">[]</data>
       <data key="d13">[]</data>
       <data key="d14">[]</data>
@@ -866,7 +920,9 @@
       <data key="d25">['models', 'models.name', 'models.description', 'models.columns', 'models.columns.name', 'models.columns.description', 'models.columns.data_tests', 'models.columns.name', 'models.columns.description', 'models.columns.data_tests', 'models.columns.data_tests.relationships', 'models.columns.data_tests.relationships.to', 'models.columns.data_tests.relationships.field']</data>
       <data key="d26">4</data>
       <data key="d27">['models', 'columns', 'data_tests']</data>
-      <data key="d28">models/staging/stg_order_items.yml</data>
+      <data key="d28" />
+      <data key="d29">False</data>
+      <data key="d30">models/staging/stg_order_items.yml</data>
     </node>
     <node id="models/staging/stg_products.sql">
       <data key="d0">models/staging/stg_products.sql</data>
@@ -874,13 +930,13 @@
       <data key="d2" />
       <data key="d3" />
       <data key="d4" />
-      <data key="d29">1</data>
+      <data key="d31">1</data>
       <data key="d6">16</data>
       <data key="d7">0.25</data>
       <data key="d8">0</data>
       <data key="d9">False</data>
       <data key="d10">False</data>
-      <data key="d11">2026-03-14T09:35:53.491889</data>
+      <data key="d11">2026-03-14T11:05:48.879660</data>
       <data key="d12">[]</data>
       <data key="d13">[]</data>
       <data key="d14">[]</data>
@@ -897,7 +953,9 @@
       <data key="d25">[]</data>
       <data key="d26">0</data>
       <data key="d27">[]</data>
-      <data key="d28">models/staging/stg_products.sql</data>
+      <data key="d28" />
+      <data key="d29">False</data>
+      <data key="d30">models/staging/stg_products.sql</data>
     </node>
     <node id="models/staging/stg_products.yml">
       <data key="d0">models/staging/stg_products.yml</data>
@@ -911,7 +969,7 @@
       <data key="d8">0</data>
       <data key="d9">False</data>
       <data key="d10">False</data>
-      <data key="d11">2026-03-14T09:35:53.491889</data>
+      <data key="d11">2026-03-14T11:05:48.879660</data>
       <data key="d12">[]</data>
       <data key="d13">[]</data>
       <data key="d14">[]</data>
@@ -928,7 +986,9 @@
       <data key="d25">['models', 'models.name', 'models.description', 'models.columns', 'models.columns.name', 'models.columns.description', 'models.columns.data_tests']</data>
       <data key="d26">2</data>
       <data key="d27">['models', 'columns', 'data_tests']</data>
-      <data key="d28">models/staging/stg_products.yml</data>
+      <data key="d28" />
+      <data key="d29">False</data>
+      <data key="d30">models/staging/stg_products.yml</data>
     </node>
     <node id="models/staging/stg_supplies.sql">
       <data key="d0">models/staging/stg_supplies.sql</data>
@@ -936,13 +996,13 @@
       <data key="d2" />
       <data key="d3" />
       <data key="d4" />
-      <data key="d29">1</data>
+      <data key="d31">1</data>
       <data key="d6">15</data>
       <data key="d7">0.267</data>
       <data key="d8">0</data>
       <data key="d9">False</data>
       <data key="d10">False</data>
-      <data key="d11">2026-03-14T09:35:53.491889</data>
+      <data key="d11">2026-03-14T11:05:48.879660</data>
       <data key="d12">[]</data>
       <data key="d13">[]</data>
       <data key="d14">[]</data>
@@ -959,7 +1019,9 @@
       <data key="d25">[]</data>
       <data key="d26">0</data>
       <data key="d27">[]</data>
-      <data key="d28">models/staging/stg_supplies.sql</data>
+      <data key="d28" />
+      <data key="d29">False</data>
+      <data key="d30">models/staging/stg_supplies.sql</data>
     </node>
     <node id="models/staging/stg_supplies.yml">
       <data key="d0">models/staging/stg_supplies.yml</data>
@@ -973,7 +1035,7 @@
       <data key="d8">0</data>
       <data key="d9">False</data>
       <data key="d10">False</data>
-      <data key="d11">2026-03-14T09:35:53.491889</data>
+      <data key="d11">2026-03-14T11:05:48.879660</data>
       <data key="d12">[]</data>
       <data key="d13">[]</data>
       <data key="d14">[]</data>
@@ -990,7 +1052,9 @@
       <data key="d25">['models', 'models.name', 'models.description', 'models.columns', 'models.columns.name', 'models.columns.description', 'models.columns.data_tests']</data>
       <data key="d26">2</data>
       <data key="d27">['models', 'columns', 'data_tests']</data>
-      <data key="d28">models/staging/stg_supplies.yml</data>
+      <data key="d28" />
+      <data key="d29">False</data>
+      <data key="d30">models/staging/stg_supplies.yml</data>
     </node>
     <node id="models/staging/__sources.yml">
       <data key="d0">models/staging/__sources.yml</data>
@@ -1004,7 +1068,7 @@
       <data key="d8">0</data>
       <data key="d9">False</data>
       <data key="d10">False</data>
-      <data key="d11">2026-03-14T09:35:53.491889</data>
+      <data key="d11">2026-03-14T11:05:48.879660</data>
       <data key="d12">[]</data>
       <data key="d13">[]</data>
       <data key="d14">[]</data>
@@ -1021,7 +1085,9 @@
       <data key="d25">['version', 'sources', 'sources.name', 'sources.schema', 'sources.description', 'sources.tables', 'sources.tables.name', 'sources.tables.description', 'sources.tables.name', 'sources.tables.description', 'sources.tables.loaded_at_field', 'sources.tables.name', 'sources.tables.description', 'sources.tables.name', 'sources.tables.loaded_at_field', 'sources.tables.name', 'sources.tables.description', 'sources.tables.name', 'sources.tables.description']</data>
       <data key="d26">2</data>
       <data key="d27">['sources', 'tables']</data>
-      <data key="d28">models/staging/__sources.yml</data>
+      <data key="d28" />
+      <data key="d29">False</data>
+      <data key="d30">models/staging/__sources.yml</data>
     </node>
   </graph>
 </graphml>

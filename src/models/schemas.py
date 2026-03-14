@@ -60,6 +60,9 @@ class ModuleNode(BaseModel):
     yaml_key_paths: list[str] = Field(default_factory=list)
     yaml_depth: int = 0
     yaml_list_keys: list[str] = Field(default_factory=list)
+    # Documentation-drift (Semanticist): compare code-grounded purpose to docstring
+    docstring_snippet: Optional[str] = None
+    doc_drift_detected: bool = False
 
 
 class DatasetNode(BaseModel):

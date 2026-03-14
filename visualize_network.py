@@ -1,4 +1,6 @@
+"""Visualize module and lineage graphs with Pyvis. Requires: uv sync --extra viz"""
 import json
+import sys
 from pathlib import Path
 
 from pyvis.network import Network
@@ -63,11 +65,18 @@ def build_lineage_network(lineage_graph: dict, out_html: Path):
 
 
 if __name__ == "__main__":
-    cartography = Path("jaffle_shop_artifacts/.cartography")  # adjust if needed
-    module_graph, lineage_graph = load_cartography(cartography)
-
-    build_module_network(module_graph, cartography / "module_graph.html")
-    build_lineage_network(lineage_graph, cartography / "lineage_graph.html")
-    print("Open:")
-    print(f"  {cartography / 'module_graph.html'}")
-    print(f"  {cartography / 'lineage_graph.html'}")
+    # Default: run for both LLM and no-LLM outputs; or pass one path: python visualize_network.py jaffle_shop_llm/.cartography
+    roots = sys.argv[1:] if len(sys.argv) > 1 else ["jaffle_shop_llm", "jaffle_shop_no_llm"]
+    for root in roots:
+        cartography = Path(root) / ".cartography" if not root.endswith(".cartography") else Path(root)
+        if not (cartography / "module_graph.json").exists():
+            print(f"Skip (missing): {cartography}")
+            continue
+        try:
+            module_graph, lineage_graph = load_cartography(cartography)
+            build_module_network(module_graph, cartography / "module_graph.html")
+            build_lineage_network(lineage_graph, cartography / "lineage_graph.html")
+            print(f"Wrote: {cartography / 'module_graph.html'}")
+            print(f"Wrote: {cartography / 'lineage_graph.html'}")
+        except Exception as e:
+            print(f"Error for {cartography}: {e}")

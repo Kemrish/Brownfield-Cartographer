@@ -56,7 +56,7 @@ def test_navigator_critical_path(sample_cartography_dir):
 
 def test_navigator_blast_radius_downstream(sample_cartography_dir):
     nav = Navigator(sample_cartography_dir)
-    radius = nav.blast_radius("stg_orders", direction="downstream")
+    radius = nav.blast_radius_nodes("stg_orders", direction="downstream")
     assert "orders" in radius
 
 

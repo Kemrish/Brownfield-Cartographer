@@ -45,14 +45,24 @@ def main() -> None:
     default=False,
     help="Disable LLM-powered Semanticist; use heuristics only (no OPENAI_API_KEY needed).",
 )
-def analyze(repo_path: str, output_dir: Path | None, full_history: bool, no_llm: bool) -> None:
+@click.option(
+    "--incremental",
+    "-i",
+    is_flag=True,
+    default=False,
+    help="Skip full run if no files changed since last run (uses .cartography/last_run.json).",
+)
+def analyze(repo_path: str, output_dir: Path | None, full_history: bool, no_llm: bool, incremental: bool) -> None:
     """Analyze a repository (local path or GitHub URL) and write module_graph.json and lineage_graph.json to .cartography/."""
     console.print(Panel.fit(f"[bold blue]Brownfield Cartographer[/bold blue]\nAnalyzing: {repo_path}"))
 
     try:
         result = run_analysis(
-            repo_path, output_dir=output_dir, full_history=full_history, use_llm=not no_llm
+            repo_path, output_dir=output_dir, full_history=full_history, use_llm=not no_llm, incremental=incremental
         )
+        if result.get("incremental_skip"):
+            console.print(f"[green]{result.get('message', 'Using existing artifacts.')}[/green]")
+            return
 
         # Summary panel
         surveyor = result.get("surveyor_stats", {})

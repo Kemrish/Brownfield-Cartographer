@@ -65,6 +65,23 @@ uv run cartographer query ./artifacts "column lineage for customers"
 
 Without a question, the CLI prints example queries.
 
+## Visualize graphs (Pyvis)
+
+Generate interactive HTML graphs for module and lineage (requires `pyvis`):
+
+```bash
+uv sync --extra viz
+uv run python visualize_network.py
+```
+
+By default this writes `module_graph.html` and `lineage_graph.html` into `jaffle_shop_llm/.cartography/` and `jaffle_shop_no_llm/.cartography/`. To target one folder:
+
+```bash
+uv run python visualize_network.py jaffle_shop_llm/.cartography
+```
+
+Open the generated `.html` files in a browser to explore the graphs.
+
 ## Export graphs (GraphML)
 
 Export module and lineage graphs for visualization in Gephi or Cytoscape:
@@ -77,11 +94,11 @@ uv run cartographer export-graphml /path/to/.cartography -o ./exports
 ## Four-agent pipeline
 
 1. **Surveyor** — Static structure: tree-sitter AST (Python, SQL, YAML), module import graph, PageRank, git velocity (30d), dead-code candidates, entry points.
-2. **Semanticist** — Infers purpose statements and domain clusters (ingestion, analytics, pipeline, etc.) from paths and structure.
-3. **Hydrologist** — Data lineage: sqlglot SQL parsing, dbt `ref()`/`source()` extraction, Python I/O heuristics, YAML configs, **column-level lineage**, critical path.
-4. **Archivist** — Generates CODEBASE.md and onboarding_brief.md from the graphs.
+2. **Hydrologist** — Data lineage: sqlglot SQL parsing, dbt `ref()`/`source()` extraction, Python I/O heuristics, YAML configs, **column-level lineage**, critical path.
+3. **Semanticist** — Infers purpose statements and domain clusters (LLM or heuristics), doc-drift detection, ContextWindowBudget (token budget).
+4. **Archivist** — Generates CODEBASE.md and onboarding_brief.md from the graphs; trace logging per artifact.
 
-The orchestrator runs Surveyor → Semanticist → Hydrologist, writes JSON and GraphML, then runs Archivist and writes the trace.
+The orchestrator runs **Surveyor → Hydrologist → Semanticist → Archivist**, writes JSON and GraphML, then writes the trace. Incremental mode (`--incremental`) re-analyzes only changed files (git diff since last run).
 
 ## Network analysis
 

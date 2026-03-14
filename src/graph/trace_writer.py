@@ -62,3 +62,25 @@ def trace_artifacts_written(
             "duration_seconds": duration_seconds,
         },
     )
+
+
+def trace_archivist_artifact(
+    cartography_dir: Path,
+    artifact_name: str,
+    path: str,
+    evidence_sources: list[str],
+    confidence: str = "high",
+) -> None:
+    """Log a single Archivist artifact write with timestamp, evidence sources, and confidence for auditability."""
+    from datetime import datetime
+    write_trace_event(
+        cartography_dir / "cartography_trace.jsonl",
+        {
+            "event": "archivist_artifact_written",
+            "artifact": artifact_name,
+            "path": path,
+            "timestamp": datetime.now().isoformat(),
+            "evidence_sources": evidence_sources,
+            "confidence": confidence,
+        },
+    )

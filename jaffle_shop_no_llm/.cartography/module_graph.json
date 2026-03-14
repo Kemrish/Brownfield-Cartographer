@@ -1,16 +1,16 @@
 {
   "metadata": {
-    "repo_path": "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\cartographer_tvkcevga",
-    "analyzed_at": "2026-03-14T09:34:58.935821",
+    "repo_path": "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\cartographer_26_7fqls",
+    "analyzed_at": "2026-03-14T11:05:21.550037",
     "total_files": 32,
     "total_modules": 32,
-    "total_datasets": 20,
-    "total_transformations": 13,
+    "total_datasets": 0,
+    "total_transformations": 0,
     "languages_detected": [
-      "yaml",
-      "sql"
+      "sql",
+      "yaml"
     ],
-    "analysis_duration_seconds": 15.08,
+    "analysis_duration_seconds": 7.85,
     "cartographer_version": "0.1.0"
   },
   "nodes": [
@@ -26,7 +26,7 @@
       "change_velocity_30d": 0,
       "is_dead_code_candidate": false,
       "is_entry_point": false,
-      "last_modified": "2026-03-14T09:34:58.786913",
+      "last_modified": "2026-03-14T11:05:21.436354",
       "imports": [],
       "public_functions": [],
       "classes": [],
@@ -84,7 +84,9 @@
         "macro-paths",
         "snapshot-paths",
         "clean-targets"
-      ]
+      ],
+      "docstring_snippet": null,
+      "doc_drift_detected": false
     },
     {
       "path": "package-lock.yml",
@@ -98,7 +100,7 @@
       "change_velocity_30d": 0,
       "is_dead_code_candidate": false,
       "is_entry_point": false,
-      "last_modified": "2026-03-14T09:34:58.819438",
+      "last_modified": "2026-03-14T11:05:21.452975",
       "imports": [],
       "public_functions": [],
       "classes": [],
@@ -132,7 +134,9 @@
       "yaml_depth": 1,
       "yaml_list_keys": [
         "packages"
-      ]
+      ],
+      "docstring_snippet": null,
+      "doc_drift_detected": false
     },
     {
       "path": "packages.yml",
@@ -146,7 +150,7 @@
       "change_velocity_30d": 0,
       "is_dead_code_candidate": false,
       "is_entry_point": false,
-      "last_modified": "2026-03-14T09:34:58.819438",
+      "last_modified": "2026-03-14T11:05:21.453785",
       "imports": [],
       "public_functions": [],
       "classes": [],
@@ -179,7 +183,9 @@
       "yaml_depth": 1,
       "yaml_list_keys": [
         "packages"
-      ]
+      ],
+      "docstring_snippet": null,
+      "doc_drift_detected": false
     },
     {
       "path": "Taskfile.yml",
@@ -193,7 +199,7 @@
       "change_velocity_30d": 0,
       "is_dead_code_candidate": false,
       "is_entry_point": false,
-      "last_modified": "2026-03-14T09:34:58.784906",
+      "last_modified": "2026-03-14T11:05:21.436354",
       "imports": [],
       "public_functions": [],
       "classes": [],
@@ -244,7 +250,9 @@
       "yaml_depth": 3,
       "yaml_list_keys": [
         "cmds"
-      ]
+      ],
+      "docstring_snippet": null,
+      "doc_drift_detected": false
     },
     {
       "path": "macros/cents_to_dollars.sql",
@@ -258,7 +266,7 @@
       "change_velocity_30d": 0,
       "is_dead_code_candidate": false,
       "is_entry_point": false,
-      "last_modified": "2026-03-14T09:34:58.786913",
+      "last_modified": "2026-03-14T11:05:21.436354",
       "imports": [],
       "public_functions": [],
       "classes": [],
@@ -274,7 +282,9 @@
       "yaml_root_keys": [],
       "yaml_key_paths": [],
       "yaml_depth": 0,
-      "yaml_list_keys": []
+      "yaml_list_keys": [],
+      "docstring_snippet": null,
+      "doc_drift_detected": false
     },
     {
       "path": "macros/generate_schema_name.sql",
@@ -288,7 +298,7 @@
       "change_velocity_30d": 0,
       "is_dead_code_candidate": false,
       "is_entry_point": false,
-      "last_modified": "2026-03-14T09:34:58.786913",
+      "last_modified": "2026-03-14T11:05:21.436354",
       "imports": [],
       "public_functions": [],
       "classes": [],
@@ -304,7 +314,9 @@
       "yaml_root_keys": [],
       "yaml_key_paths": [],
       "yaml_depth": 0,
-      "yaml_list_keys": []
+      "yaml_list_keys": [],
+      "docstring_snippet": null,
+      "doc_drift_detected": false
     },
     {
       "path": "models/marts/customers.sql",
@@ -318,7 +330,7 @@
       "change_velocity_30d": 0,
       "is_dead_code_candidate": false,
       "is_entry_point": false,
-      "last_modified": "2026-03-14T09:34:58.788920",
+      "last_modified": "2026-03-14T11:05:21.436354",
       "imports": [],
       "public_functions": [],
       "classes": [],
@@ -348,7 +360,9 @@
       "yaml_root_keys": [],
       "yaml_key_paths": [],
       "yaml_depth": 0,
-      "yaml_list_keys": []
+      "yaml_list_keys": [],
+      "docstring_snippet": null,
+      "doc_drift_detected": false
     },
     {
       "path": "models/marts/customers.yml",
@@ -362,7 +376,7 @@
       "change_velocity_30d": 0,
       "is_dead_code_candidate": false,
       "is_entry_point": false,
-      "last_modified": "2026-03-14T09:34:58.788920",
+      "last_modified": "2026-03-14T11:05:21.436354",
       "imports": [],
       "public_functions": [],
       "classes": [],
@@ -517,7 +531,9 @@
         "saved_queries",
         "group_by",
         "exports"
-      ]
+      ],
+      "docstring_snippet": null,
+      "doc_drift_detected": false
     },
     {
       "path": "models/marts/locations.sql",
@@ -531,7 +547,7 @@
       "change_velocity_30d": 0,
       "is_dead_code_candidate": false,
       "is_entry_point": false,
-      "last_modified": "2026-03-14T09:34:58.788920",
+      "last_modified": "2026-03-14T11:05:21.436354",
       "imports": [],
       "public_functions": [],
       "classes": [],
@@ -551,7 +567,9 @@
       "yaml_root_keys": [],
       "yaml_key_paths": [],
       "yaml_depth": 0,
-      "yaml_list_keys": []
+      "yaml_list_keys": [],
+      "docstring_snippet": null,
+      "doc_drift_detected": false
     },
     {
       "path": "models/marts/locations.yml",
@@ -565,7 +583,7 @@
       "change_velocity_30d": 0,
       "is_dead_code_candidate": false,
       "is_entry_point": false,
-      "last_modified": "2026-03-14T09:34:58.790926",
+      "last_modified": "2026-03-14T11:05:21.436354",
       "imports": [],
       "public_functions": [],
       "classes": [],
@@ -618,7 +636,9 @@
         "entities",
         "dimensions",
         "measures"
-      ]
+      ],
+      "docstring_snippet": null,
+      "doc_drift_detected": false
     },
     {
       "path": "models/marts/metricflow_time_spine.sql",
@@ -632,7 +652,7 @@
       "change_velocity_30d": 0,
       "is_dead_code_candidate": false,
       "is_entry_point": false,
-      "last_modified": "2026-03-14T09:34:58.790926",
+      "last_modified": "2026-03-14T11:05:21.436354",
       "imports": [],
       "public_functions": [],
       "classes": [],
@@ -651,7 +671,9 @@
       "yaml_root_keys": [],
       "yaml_key_paths": [],
       "yaml_depth": 0,
-      "yaml_list_keys": []
+      "yaml_list_keys": [],
+      "docstring_snippet": null,
+      "doc_drift_detected": false
     },
     {
       "path": "models/marts/orders.sql",
@@ -665,7 +687,7 @@
       "change_velocity_30d": 0,
       "is_dead_code_candidate": false,
       "is_entry_point": false,
-      "last_modified": "2026-03-14T09:34:58.790926",
+      "last_modified": "2026-03-14T11:05:21.436354",
       "imports": [],
       "public_functions": [],
       "classes": [],
@@ -696,7 +718,9 @@
       "yaml_root_keys": [],
       "yaml_key_paths": [],
       "yaml_depth": 0,
-      "yaml_list_keys": []
+      "yaml_list_keys": [],
+      "docstring_snippet": null,
+      "doc_drift_detected": false
     },
     {
       "path": "models/marts/orders.yml",
@@ -710,7 +734,7 @@
       "change_velocity_30d": 0,
       "is_dead_code_candidate": false,
       "is_entry_point": false,
-      "last_modified": "2026-03-14T09:34:58.813894",
+      "last_modified": "2026-03-14T11:05:21.436354",
       "imports": [],
       "public_functions": [],
       "classes": [],
@@ -952,7 +976,9 @@
         "saved_queries",
         "group_by",
         "exports"
-      ]
+      ],
+      "docstring_snippet": null,
+      "doc_drift_detected": false
     },
     {
       "path": "models/marts/order_items.sql",
@@ -966,7 +992,7 @@
       "change_velocity_30d": 0,
       "is_dead_code_candidate": false,
       "is_entry_point": false,
-      "last_modified": "2026-03-14T09:34:58.790926",
+      "last_modified": "2026-03-14T11:05:21.436354",
       "imports": [],
       "public_functions": [],
       "classes": [],
@@ -1010,7 +1036,9 @@
       "yaml_root_keys": [],
       "yaml_key_paths": [],
       "yaml_depth": 0,
-      "yaml_list_keys": []
+      "yaml_list_keys": [],
+      "docstring_snippet": null,
+      "doc_drift_detected": false
     },
     {
       "path": "models/marts/order_items.yml",
@@ -1024,7 +1052,7 @@
       "change_velocity_30d": 0,
       "is_dead_code_candidate": false,
       "is_entry_point": false,
-      "last_modified": "2026-03-14T09:34:58.790926",
+      "last_modified": "2026-03-14T11:05:21.436354",
       "imports": [],
       "public_functions": [],
       "classes": [],
@@ -1299,7 +1327,9 @@
         "saved_queries",
         "group_by",
         "exports"
-      ]
+      ],
+      "docstring_snippet": null,
+      "doc_drift_detected": false
     },
     {
       "path": "models/marts/products.sql",
@@ -1313,7 +1343,7 @@
       "change_velocity_30d": 0,
       "is_dead_code_candidate": false,
       "is_entry_point": false,
-      "last_modified": "2026-03-14T09:34:58.814629",
+      "last_modified": "2026-03-14T11:05:21.436354",
       "imports": [],
       "public_functions": [],
       "classes": [],
@@ -1333,7 +1363,9 @@
       "yaml_root_keys": [],
       "yaml_key_paths": [],
       "yaml_depth": 0,
-      "yaml_list_keys": []
+      "yaml_list_keys": [],
+      "docstring_snippet": null,
+      "doc_drift_detected": false
     },
     {
       "path": "models/marts/products.yml",
@@ -1347,7 +1379,7 @@
       "change_velocity_30d": 0,
       "is_dead_code_candidate": false,
       "is_entry_point": false,
-      "last_modified": "2026-03-14T09:34:58.814629",
+      "last_modified": "2026-03-14T11:05:21.436354",
       "imports": [],
       "public_functions": [],
       "classes": [],
@@ -1395,7 +1427,9 @@
         "semantic_models",
         "entities",
         "dimensions"
-      ]
+      ],
+      "docstring_snippet": null,
+      "doc_drift_detected": false
     },
     {
       "path": "models/marts/supplies.sql",
@@ -1409,7 +1443,7 @@
       "change_velocity_30d": 0,
       "is_dead_code_candidate": false,
       "is_entry_point": false,
-      "last_modified": "2026-03-14T09:34:58.814629",
+      "last_modified": "2026-03-14T11:05:21.436354",
       "imports": [],
       "public_functions": [],
       "classes": [],
@@ -1429,7 +1463,9 @@
       "yaml_root_keys": [],
       "yaml_key_paths": [],
       "yaml_depth": 0,
-      "yaml_list_keys": []
+      "yaml_list_keys": [],
+      "docstring_snippet": null,
+      "doc_drift_detected": false
     },
     {
       "path": "models/marts/supplies.yml",
@@ -1443,7 +1479,7 @@
       "change_velocity_30d": 0,
       "is_dead_code_candidate": false,
       "is_entry_point": false,
-      "last_modified": "2026-03-14T09:34:58.815636",
+      "last_modified": "2026-03-14T11:05:21.436354",
       "imports": [],
       "public_functions": [],
       "classes": [],
@@ -1489,7 +1525,9 @@
         "semantic_models",
         "entities",
         "dimensions"
-      ]
+      ],
+      "docstring_snippet": null,
+      "doc_drift_detected": false
     },
     {
       "path": "models/staging/stg_customers.sql",
@@ -1503,7 +1541,7 @@
       "change_velocity_30d": 0,
       "is_dead_code_candidate": false,
       "is_entry_point": false,
-      "last_modified": "2026-03-14T09:34:58.815636",
+      "last_modified": "2026-03-14T11:05:21.436354",
       "imports": [],
       "public_functions": [],
       "classes": [],
@@ -1524,7 +1562,9 @@
       "yaml_root_keys": [],
       "yaml_key_paths": [],
       "yaml_depth": 0,
-      "yaml_list_keys": []
+      "yaml_list_keys": [],
+      "docstring_snippet": null,
+      "doc_drift_detected": false
     },
     {
       "path": "models/staging/stg_customers.yml",
@@ -1538,7 +1578,7 @@
       "change_velocity_30d": 0,
       "is_dead_code_candidate": false,
       "is_entry_point": false,
-      "last_modified": "2026-03-14T09:34:58.815636",
+      "last_modified": "2026-03-14T11:05:21.436354",
       "imports": [],
       "public_functions": [],
       "classes": [],
@@ -1570,7 +1610,9 @@
         "models",
         "columns",
         "data_tests"
-      ]
+      ],
+      "docstring_snippet": null,
+      "doc_drift_detected": false
     },
     {
       "path": "models/staging/stg_locations.sql",
@@ -1584,7 +1626,7 @@
       "change_velocity_30d": 0,
       "is_dead_code_candidate": false,
       "is_entry_point": false,
-      "last_modified": "2026-03-14T09:34:58.815636",
+      "last_modified": "2026-03-14T11:05:21.449968",
       "imports": [],
       "public_functions": [],
       "classes": [],
@@ -1605,7 +1647,9 @@
       "yaml_root_keys": [],
       "yaml_key_paths": [],
       "yaml_depth": 0,
-      "yaml_list_keys": []
+      "yaml_list_keys": [],
+      "docstring_snippet": null,
+      "doc_drift_detected": false
     },
     {
       "path": "models/staging/stg_locations.yml",
@@ -1619,7 +1663,7 @@
       "change_velocity_30d": 0,
       "is_dead_code_candidate": false,
       "is_entry_point": false,
-      "last_modified": "2026-03-14T09:34:58.815636",
+      "last_modified": "2026-03-14T11:05:21.449968",
       "imports": [],
       "public_functions": [],
       "classes": [],
@@ -1684,7 +1728,9 @@
         "unit_tests",
         "given",
         "rows"
-      ]
+      ],
+      "docstring_snippet": null,
+      "doc_drift_detected": false
     },
     {
       "path": "models/staging/stg_orders.sql",
@@ -1698,7 +1744,7 @@
       "change_velocity_30d": 0,
       "is_dead_code_candidate": false,
       "is_entry_point": false,
-      "last_modified": "2026-03-14T09:34:58.819438",
+      "last_modified": "2026-03-14T11:05:21.450976",
       "imports": [],
       "public_functions": [],
       "classes": [],
@@ -1719,7 +1765,9 @@
       "yaml_root_keys": [],
       "yaml_key_paths": [],
       "yaml_depth": 0,
-      "yaml_list_keys": []
+      "yaml_list_keys": [],
+      "docstring_snippet": null,
+      "doc_drift_detected": false
     },
     {
       "path": "models/staging/stg_orders.yml",
@@ -1733,7 +1781,7 @@
       "change_velocity_30d": 0,
       "is_dead_code_candidate": false,
       "is_entry_point": false,
-      "last_modified": "2026-03-14T09:34:58.819438",
+      "last_modified": "2026-03-14T11:05:21.451975",
       "imports": [],
       "public_functions": [],
       "classes": [],
@@ -1769,7 +1817,9 @@
         "models",
         "data_tests",
         "columns"
-      ]
+      ],
+      "docstring_snippet": null,
+      "doc_drift_detected": false
     },
     {
       "path": "models/staging/stg_order_items.sql",
@@ -1783,7 +1833,7 @@
       "change_velocity_30d": 0,
       "is_dead_code_candidate": false,
       "is_entry_point": false,
-      "last_modified": "2026-03-14T09:34:58.815636",
+      "last_modified": "2026-03-14T11:05:21.450976",
       "imports": [],
       "public_functions": [],
       "classes": [],
@@ -1804,7 +1854,9 @@
       "yaml_root_keys": [],
       "yaml_key_paths": [],
       "yaml_depth": 0,
-      "yaml_list_keys": []
+      "yaml_list_keys": [],
+      "docstring_snippet": null,
+      "doc_drift_detected": false
     },
     {
       "path": "models/staging/stg_order_items.yml",
@@ -1818,7 +1870,7 @@
       "change_velocity_30d": 0,
       "is_dead_code_candidate": false,
       "is_entry_point": false,
-      "last_modified": "2026-03-14T09:34:58.819438",
+      "last_modified": "2026-03-14T11:05:21.450976",
       "imports": [],
       "public_functions": [],
       "classes": [],
@@ -1856,7 +1908,9 @@
         "models",
         "columns",
         "data_tests"
-      ]
+      ],
+      "docstring_snippet": null,
+      "doc_drift_detected": false
     },
     {
       "path": "models/staging/stg_products.sql",
@@ -1870,7 +1924,7 @@
       "change_velocity_30d": 0,
       "is_dead_code_candidate": false,
       "is_entry_point": false,
-      "last_modified": "2026-03-14T09:34:58.819438",
+      "last_modified": "2026-03-14T11:05:21.451975",
       "imports": [],
       "public_functions": [],
       "classes": [],
@@ -1891,7 +1945,9 @@
       "yaml_root_keys": [],
       "yaml_key_paths": [],
       "yaml_depth": 0,
-      "yaml_list_keys": []
+      "yaml_list_keys": [],
+      "docstring_snippet": null,
+      "doc_drift_detected": false
     },
     {
       "path": "models/staging/stg_products.yml",
@@ -1905,7 +1961,7 @@
       "change_velocity_30d": 0,
       "is_dead_code_candidate": false,
       "is_entry_point": false,
-      "last_modified": "2026-03-14T09:34:58.819438",
+      "last_modified": "2026-03-14T11:05:21.451975",
       "imports": [],
       "public_functions": [],
       "classes": [],
@@ -1937,7 +1993,9 @@
         "models",
         "columns",
         "data_tests"
-      ]
+      ],
+      "docstring_snippet": null,
+      "doc_drift_detected": false
     },
     {
       "path": "models/staging/stg_supplies.sql",
@@ -1951,7 +2009,7 @@
       "change_velocity_30d": 0,
       "is_dead_code_candidate": false,
       "is_entry_point": false,
-      "last_modified": "2026-03-14T09:34:58.819438",
+      "last_modified": "2026-03-14T11:05:21.451975",
       "imports": [],
       "public_functions": [],
       "classes": [],
@@ -1972,7 +2030,9 @@
       "yaml_root_keys": [],
       "yaml_key_paths": [],
       "yaml_depth": 0,
-      "yaml_list_keys": []
+      "yaml_list_keys": [],
+      "docstring_snippet": null,
+      "doc_drift_detected": false
     },
     {
       "path": "models/staging/stg_supplies.yml",
@@ -1986,7 +2046,7 @@
       "change_velocity_30d": 0,
       "is_dead_code_candidate": false,
       "is_entry_point": false,
-      "last_modified": "2026-03-14T09:34:58.819438",
+      "last_modified": "2026-03-14T11:05:21.452975",
       "imports": [],
       "public_functions": [],
       "classes": [],
@@ -2018,7 +2078,9 @@
         "models",
         "columns",
         "data_tests"
-      ]
+      ],
+      "docstring_snippet": null,
+      "doc_drift_detected": false
     },
     {
       "path": "models/staging/__sources.yml",
@@ -2032,7 +2094,7 @@
       "change_velocity_30d": 0,
       "is_dead_code_candidate": false,
       "is_entry_point": false,
-      "last_modified": "2026-03-14T09:34:58.815636",
+      "last_modified": "2026-03-14T11:05:21.436354",
       "imports": [],
       "public_functions": [],
       "classes": [],
@@ -2076,7 +2138,9 @@
       "yaml_list_keys": [
         "sources",
         "tables"
-      ]
+      ],
+      "docstring_snippet": null,
+      "doc_drift_detected": false
     }
   ],
   "edges": [],

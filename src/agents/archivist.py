@@ -1,8 +1,12 @@
-"""Archivist agent: generate CODEBASE.md and onboarding_brief.md from cartography artifacts."""
+"""Archivist agent: generate CODEBASE.md and onboarding_brief.md from cartography artifacts.
+Integrates with trace: every artifact write records timestamp, evidence_sources, and confidence for auditability.
+"""
 
 import json
 from pathlib import Path
 from typing import Any, Optional
+
+from src.graph.trace_writer import trace_archivist_artifact
 
 
 def _load_json(path: Path) -> Optional[dict]:
@@ -106,6 +110,45 @@ def _generate_codebase_md(module_graph: dict, lineage_graph: dict) -> str:
 
     lines.append("---")
     lines.append("")
+    lines.append("## Known debt (dead-code candidates)")
+    debt = module_graph.get("dead_code_candidates", [])[:20]
+    if debt:
+        lines.append("Modules with no incoming imports (candidates for removal or documentation):")
+        lines.append("")
+        for d in debt:
+            lines.append(f"- `{d}`")
+    else:
+        lines.append("*None identified.*")
+    lines.append("")
+
+    lines.append("---")
+    lines.append("")
+    lines.append("## High-velocity files (last 30 days)")
+    vel = module_graph.get("high_velocity_files", [])[:20]
+    if vel:
+        lines.append("Files with most commits in the last 30 days:")
+        lines.append("")
+        for v in vel:
+            lines.append(f"- `{v}`")
+    else:
+        lines.append("*None (or no git history).*")
+    lines.append("")
+
+    lines.append("---")
+    lines.append("")
+    lines.append("## Module purpose index")
+    lines.append("")
+    lines.append("| Module path | Purpose | Domain |")
+    lines.append("|------------|---------|--------|")
+    for n in sorted(module_graph.get("nodes", []), key=lambda x: x.get("path", "")):
+        path = (n.get("path") or "")[:60]
+        purpose = (n.get("purpose_statement") or "(none)").replace("|", "\\|")[:50]
+        domain = (n.get("domain_cluster") or "uncategorized")[:20]
+        lines.append(f"| `{path}` | {purpose} | {domain} |")
+    lines.append("")
+
+    lines.append("---")
+    lines.append("")
     lines.append("*Regenerate with: `cartographer analyze <repo>`*")
     return "\n".join(lines)
 
@@ -198,12 +241,16 @@ class Archivist:
         self.cartography_dir = Path(cartography_dir)
 
     def generate_all(self) -> dict[str, str]:
-        """Generate CODEBASE.md and onboarding_brief.md. Returns paths to written files."""
+        """Generate CODEBASE.md and onboarding_brief.md. Returns paths to written files.
+        Each write is logged to the trace with timestamp, evidence_sources, and confidence.
+        """
         module_path = self.cartography_dir / "module_graph.json"
         lineage_path = self.cartography_dir / "lineage_graph.json"
 
         module_graph = _load_json(module_path) or {"nodes": [], "metadata": {}}
         lineage_graph = _load_json(lineage_path) or {"datasets": [], "sources": [], "sinks": [], "critical_path": []}
+
+        evidence = ["module_graph.json", "lineage_graph.json"]
 
         codebase_md = _generate_codebase_md(module_graph, lineage_graph)
         brief_md = _generate_onboarding_brief(module_graph, lineage_graph)
@@ -212,6 +259,21 @@ class Archivist:
         brief_path = self.cartography_dir / "onboarding_brief.md"
 
         codebase_path.write_text(codebase_md, encoding="utf-8")
+        trace_archivist_artifact(
+            self.cartography_dir,
+            "CODEBASE.md",
+            str(codebase_path),
+            evidence_sources=evidence,
+            confidence="high",
+        )
+
         brief_path.write_text(brief_md, encoding="utf-8")
+        trace_archivist_artifact(
+            self.cartography_dir,
+            "onboarding_brief.md",
+            str(brief_path),
+            evidence_sources=evidence,
+            confidence="high",
+        )
 
         return {"CODEBASE.md": str(codebase_path), "onboarding_brief.md": str(brief_path)}
