@@ -1,16 +1,18 @@
 """Semanticist agent: infer purpose statements and domain clusters.
 - LLM-powered analysis (OpenRouter/OpenAI) with cost-aware model tiering and ContextWindowBudget (token budget).
+- Embedding-based domain clustering (optional): refine domains by similarity to domain prototypes.
 - Documentation-drift detection: compare code-grounded purpose to module docstrings.
-- Day-One question answering: purpose/domain feed Navigator and onboarding_brief.
+- Day-One Q&A synthesizer: explicit Q&A with file/line citations from the graphs.
 """
 
 import os
 import re
 from pathlib import Path
-from typing import Optional
+from typing import Any, Optional
 
 import httpx
 
+from src.embeddings import cosine_similarity, get_embedding
 from src.graph.knowledge_graph import KnowledgeGraph
 from src.models.schemas import ModuleNode
 
@@ -48,6 +50,21 @@ def _detect_drift(purpose: Optional[str], docstring: Optional[str]) -> bool:
 
 # Domain set for LLM (consistent vocabulary)
 DOMAIN_OPTIONS = "ingestion, analytics, pipeline, configuration, data, testing, api, auth, shared, entrypoint, uncategorized"
+
+# Prototype descriptions for embedding-based domain clustering (one short string per domain)
+DOMAIN_PROTOTYPES = [
+    "ingestion: raw data, staging, ETL input, source tables",
+    "analytics: data mart, fact and dimension tables, reporting, aggregations",
+    "pipeline: workflow, DAG, orchestration, task runner",
+    "configuration: config files, settings, environment, YAML config",
+    "data: database, schema, SQL, migrations",
+    "testing: tests, fixtures, mocks, specs",
+    "api: REST API, client, HTTP requests",
+    "auth: authentication, login, session, user",
+    "shared: utilities, helpers, common code",
+    "entrypoint: CLI, main, application entry",
+    "uncategorized: other or unknown",
+]
 
 
 # Domain keywords: path/filename/identifier hints -> domain label
@@ -190,17 +207,26 @@ domain: <one word>"""
 # OpenRouter: same API shape as OpenAI, different base URL and model ID
 OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
 OPENROUTER_DEFAULT_MODEL = "openai/gpt-4o-mini"
+OPENROUTER_EXPENSIVE_MODEL = "openai/gpt-4o"
+
+# Model tiering: cheap = fast/cheap, expensive = higher quality, auto = cheap until budget low then heuristics
+def _llm_tier() -> str:
+    return os.environ.get("CARTOGRAPHER_LLM_TIER", "auto").strip().lower() or "auto"
 
 
 def _resolve_llm_config() -> tuple[str, Optional[str], str]:
-    """Resolve API key, base URL, and model from env. Prefer OpenRouter if OPENROUTER_API_KEY is set."""
+    """Resolve API key, base URL, and model from env. Model tiering: cheap vs expensive driven by CARTOGRAPHER_LLM_TIER."""
     openrouter_key = os.environ.get("OPENROUTER_API_KEY", "").strip()
-    if openrouter_key:
-        return openrouter_key, OPENROUTER_BASE_URL, OPENROUTER_DEFAULT_MODEL
     openai_key = os.environ.get("OPENAI_API_KEY", "").strip()
-    if openai_key:
-        return openai_key, None, "gpt-4o-mini"
-    return "", None, "gpt-4o-mini"
+    key = openrouter_key or openai_key
+    base = OPENROUTER_BASE_URL if openrouter_key else (None if openai_key else OPENROUTER_BASE_URL)
+    model = OPENROUTER_DEFAULT_MODEL if openrouter_key else "gpt-4o-mini"
+    tier = _llm_tier()
+    if tier == "expensive":
+        model = OPENROUTER_EXPENSIVE_MODEL if openrouter_key else "gpt-4o"
+    elif tier == "cheap":
+        model = OPENROUTER_DEFAULT_MODEL if openrouter_key else "gpt-4o-mini"
+    return key or "", base, model
 
 
 def _parse_token_budget() -> int:
@@ -235,11 +261,22 @@ class Semanticist:
         self.ContextWindowBudget = self.token_budget  # alias for spec
         self._doc_drift_paths: list[str] = []
 
+    def _use_llm_for_node(self) -> bool:
+        """Model tiering: auto = use LLM until budget drops below 20%, then heuristics."""
+        if not self.use_llm or not self.api_key:
+            return False
+        tier = _llm_tier()
+        if tier == "cheap" or tier == "expensive":
+            return self._tokens_used < self.token_budget
+        if tier == "auto":
+            return self._tokens_used < self.token_budget and (self._tokens_used < 0.8 * self.token_budget)
+        return self._tokens_used < self.token_budget
+
     def enrich_module_node(self, path: str, node: ModuleNode) -> ModuleNode:
         """Add purpose_statement and domain_cluster (LLM if enabled and budget allows, else heuristics). Doc-drift vs docstring."""
         purpose = node.purpose_statement
         domain = node.domain_cluster
-        if self.use_llm and self.api_key and self._tokens_used < self.token_budget:
+        if self._use_llm_for_node():
             llm_purpose, llm_domain, tokens = _llm_infer_purpose_and_domain(
                 path, node, self.api_key, self.llm_base_url, self.llm_model
             )
@@ -263,10 +300,41 @@ class Semanticist:
                 self._doc_drift_paths.append(path)
         return node
 
+    def _embedding_domain_refinement(self, graph: KnowledgeGraph) -> None:
+        """Optional: refine domain_cluster using embedding similarity to domain prototypes. Set CARTOGRAPHER_EMBEDDING_CLUSTER=1."""
+        if not os.environ.get("CARTOGRAPHER_EMBEDDING_CLUSTER", "").strip() in ("1", "true", "yes") or not self.api_key:
+            return
+        domain_names = [p.split(":")[0].strip() for p in DOMAIN_PROTOTYPES]
+        prototype_embeddings: list[Optional[list[float]]] = []
+        for p in DOMAIN_PROTOTYPES:
+            emb = get_embedding(p, self.api_key, self.llm_base_url)
+            prototype_embeddings.append(emb)
+        if any(e is None for e in prototype_embeddings):
+            return
+        for path, node in list(graph.module_nodes.items()):
+            text = f"{path} {node.purpose_statement or ''}"
+            emb = get_embedding(text, self.api_key, self.llm_base_url)
+            if emb is None:
+                continue
+            best_i = 0
+            best_sim = -1.0
+            for i, pe in enumerate(prototype_embeddings):
+                if pe is None:
+                    continue
+                sim = cosine_similarity(emb, pe)
+                if sim > best_sim:
+                    best_sim = sim
+                    best_i = i
+            if best_i < len(domain_names):
+                node.domain_cluster = domain_names[best_i]
+                graph.module_nodes[path] = node
+        return
+
     def run(self, graph: KnowledgeGraph) -> KnowledgeGraph:
-        """Enrich all module nodes in the graph with purpose and domain."""
+        """Enrich all module nodes in the graph with purpose and domain; optional embedding-based domain refinement."""
         for path, node in list(graph.module_nodes.items()):
             graph.module_nodes[path] = self.enrich_module_node(path, node)
+        self._embedding_domain_refinement(graph)
         return graph
 
     def get_domain_summary(self, graph: KnowledgeGraph) -> dict[str, list[str]]:
@@ -293,3 +361,54 @@ class Semanticist:
             {"path": p, "purpose": graph.module_nodes.get(p).purpose_statement if p in graph.module_nodes else None}
             for p in self._doc_drift_paths
         ]
+
+
+def day_one_qa_synthesis(module_graph: dict, lineage_graph: dict) -> list[dict[str, Any]]:
+    """Explicit Day-One Q&A synthesizer: answers the five Day-One questions with file/line citations from the graphs."""
+    citations_for = []
+    sources = [s for s in lineage_graph.get("sources", []) if not s.startswith("sql:")]
+    sinks = [s for s in lineage_graph.get("sinks", []) if not s.startswith("sql:")]
+    trans = lineage_graph.get("transformations", [])
+    critical = lineage_graph.get("critical_path", [])
+    nodes = module_graph.get("nodes", [])
+
+    def cite(file: str, line_range: Optional[tuple[int, int]] = None) -> dict:
+        d: dict = {"file": file, "source": "static"}
+        if line_range:
+            d["line_range"] = list(line_range)
+        return d
+
+    # Q1: Primary data ingestion path
+    lines1 = ["Data enters via: " + ", ".join(sources[:10]) + "."]
+    for t in trans[:5]:
+        if t.get("source_file"):
+            citations_for.append(cite(t["source_file"], tuple(t["line_range"]) if isinstance(t.get("line_range"), list) and len(t.get("line_range", [])) >= 2 else None))
+    q1 = {"question": "What is the primary data ingestion path?", "answer": "\n".join(lines1), "citations": citations_for[:10]}
+
+    # Q2: Critical output datasets
+    lines2 = ["Critical outputs: " + ", ".join(sinks[:10]) + "."]
+    q2 = {"question": "What are the 3-5 most critical output datasets?", "answer": "\n".join(lines2), "citations": [cite("lineage_graph.json")]}
+
+    # Q3: Blast radius (critical path)
+    path_show = [n for n in critical if not n.startswith("sql:")][:8]
+    lines3 = ["Critical path: " + " -> ".join(path_show) + ". Failure of any node blocks downstream."]
+    c3 = []
+    for tid in critical:
+        t = next((x for x in trans if x.get("id") == tid), None)
+        if t and t.get("source_file"):
+            c3.append(cite(t["source_file"], tuple(t["line_range"]) if isinstance(t.get("line_range"), list) and len(t.get("line_range", [])) >= 2 else None))
+    q3 = {"question": "What is the blast radius if the most critical module fails?", "answer": "\n".join(lines3), "citations": c3[:15]}
+
+    # Q4: Business logic concentration (hub modules + high-LOC)
+    hub = module_graph.get("hub_modules", [])[:5]
+    by_loc = sorted(nodes, key=lambda n: -(n.get("lines_of_code") or 0))[:5]
+    lines4 = ["Hub modules (high impact): " + ", ".join(hub) + ". High-LOC: " + ", ".join(n.get("path", "") for n in by_loc) + "."]
+    c4 = [cite(n.get("path", "")) for n in by_loc if n.get("path")]
+    q4 = {"question": "Where is business logic concentrated?", "answer": "\n".join(lines4), "citations": c4[:10]}
+
+    # Q5: High-velocity files
+    vel = module_graph.get("high_velocity_files", [])[:5]
+    lines5 = ["High-velocity (recent changes): " + ", ".join(vel) + "."] if vel else ["No git velocity data (run with repo clone)."]
+    q5 = {"question": "What has changed most frequently?", "answer": "\n".join(lines5), "citations": [cite("module_graph.json")]}
+
+    return [q1, q2, q3, q4, q5]
